@@ -1,0 +1,64 @@
+pre {
+    white-space: pre !important;
+    overflow-y: scroll !important;
+    max-height: 30vh !important;
+}
+
+.markdown-section ul {
+    padding-left: .9em !important;
+}
+
+.treeview__container {
+    margin-bottom: 0 !important;
+}
+
+.treeview__container-title {
+    display: none;
+}
+
+
+.custom-table-height {
+    display: block;
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.chapter:hover {
+    background-color: #F5F7F9;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f7f7f7;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #bfbfbf;
+    border-radius: 10px;
+}
+
+img {
+    width: 50%;
+}
+
+.markdown-section ol {
+    padding-left: 1.2em;
+}
+
+.crimson {
+    color: #DC143C;
+}
+
+.forest-green {
+    color: 	#228B22;
+}
+
+.redis-mode img {
+    width: 19%;
+}
+

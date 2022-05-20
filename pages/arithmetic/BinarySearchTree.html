@@ -1,0 +1,999 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>二叉搜索树 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-lightbox/css/lightbox.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="DFS.html" />
+    
+    
+    <link rel="prev" href="DynamicProgramming.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试宝典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Java.html">
+            
+                <a href="../Java.html">
+            
+                    
+                    Java专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java/Base.html">
+            
+                <a href="../java/Base.html">
+            
+                    
+                    基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java/Collection.html">
+            
+                <a href="../java/Collection.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java/Thread.html">
+            
+                <a href="../java/Thread.html">
+            
+                    
+                    线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java/Concurrence.html">
+            
+                <a href="../java/Concurrence.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java/JVM.html">
+            
+                <a href="../java/JVM.html">
+            
+                    
+                    虚拟机
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DesignPatterns.html">
+            
+                <a href="../DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network.html">
+            
+                <a href="../Network.html">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Database.html">
+            
+                <a href="../Database.html">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../SSM.html">
+            
+                <a href="../SSM.html">
+            
+                    
+                    SSM框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Redis.html">
+            
+                <a href="../Redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Elasticsearch.html">
+            
+                <a href="../Elasticsearch.html">
+            
+                    
+                    Elasticsearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Zookeeper.html">
+            
+                <a href="../Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Kafka.html">
+            
+                <a href="../Kafka.html">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../Eureka.html">
+            
+                <a href="../Eureka.html">
+            
+                    
+                    Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Dubbo.html">
+            
+                <a href="../Dubbo.html">
+            
+                    
+                    Dubbo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../MicroService.html">
+            
+                <a href="../MicroService.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../Arithmetic.html">
+            
+                <a href="../Arithmetic.html">
+            
+                    
+                    算法专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../DataStructure.html">
+            
+                <a href="../DataStructure.html">
+            
+                    
+                    数据结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="Greedy.html">
+            
+                <a href="Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="DynamicProgramming.html">
+            
+                <a href="DynamicProgramming.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.14.4" data-path="BinarySearchTree.html">
+            
+                <a href="BinarySearchTree.html">
+            
+                    
+                    二叉搜索树
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="DFS.html">
+            
+                <a href="DFS.html">
+            
+                    
+                    DFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="BFS.html">
+            
+                <a href="BFS.html">
+            
+                    
+                    BFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="SlidingWindow.html">
+            
+                <a href="SlidingWindow.html">
+            
+                    
+                    滑动窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="DoublePoint.html">
+            
+                <a href="DoublePoint.html">
+            
+                    
+                    双指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="IntervalDispatch.html">
+            
+                <a href="IntervalDispatch.html">
+            
+                    
+                    区间调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="MonotonousStackAndQueue.html">
+            
+                <a href="MonotonousStackAndQueue.html">
+            
+                    
+                    单调栈/队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="Factorial.html">
+            
+                <a href="Factorial.html">
+            
+                    
+                    阶乘
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="BinarySearch.html">
+            
+                <a href="BinarySearch.html">
+            
+                    
+                    二分法查找
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="ReservoirSampling.html">
+            
+                <a href="ReservoirSampling.html">
+            
+                    
+                    水塘抽样
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="BitManipulation.html">
+            
+                <a href="BitManipulation.html">
+            
+                    
+                    位操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="Composite.html">
+            
+                <a href="Composite.html">
+            
+                    
+                    综合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Deploy.html">
+            
+                <a href="../Deploy.html">
+            
+                    
+                    服务部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../Introduction.html">
+            
+                <a href="../Introduction.html">
+            
+                    
+                    自我/项目概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../InterviewSkill.html">
+            
+                <a href="../InterviewSkill.html">
+            
+                    
+                    面试技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../Review.html">
+            
+                <a href="../Review.html">
+            
+                    
+                    面试真题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../review/ReviewI.html">
+            
+                <a href="../review/ReviewI.html">
+            
+                    
+                    题卷I
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../review/ReviewII.html">
+            
+                <a href="../review/ReviewII.html">
+            
+                    
+                    题卷II
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../Question.html">
+            
+                <a href="../Question.html">
+            
+                    
+                    实战问题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../question/QuestionI.html">
+            
+                <a href="../question/QuestionI.html">
+            
+                    
+                    问题I
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../Ending.html">
+            
+                <a href="../Ending.html">
+            
+                    
+                    后记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >二叉搜索树</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div class="treeview__container"><div class="treeview__container-title"><span class="treeview__main-title">Treeview</span><span class="treeview__copyright">Copyright &#xA9; aleen42 all right reserved, powered by <a href="https://github.com/aleen42" target="_blank">aleen42</a></span></div><ul>
+<li><div><a href="#&#x9A8C;&#x8BC1;">&#x9A8C;&#x8BC1;</a><i></i></div></li>
+<li><div><a href="#&#x76F8;&#x540C;&#x7684;&#x6811;">&#x76F8;&#x540C;&#x7684;&#x6811;</a><i></i></div></li>
+<li><div><a href="#&#x641C;&#x7D22;">&#x641C;&#x7D22;</a><i></i></div></li>
+<li><div><a href="#&#x5220;&#x9664;">&#x5220;&#x9664;</a><i></i></div></li>
+<li><div><a href="#&#x63D2;&#x5165;">&#x63D2;&#x5165;</a><i></i></div></li>
+</ul>
+</div>
+
+<h4 id="&#x4E8C;&#x53C9;&#x641C;&#x7D22;&#x6811;">&#x4E8C;&#x53C9;&#x641C;&#x7D22;&#x6811;</h4>
+<ul>
+<li>&#x5B9A;&#x4E49;</li>
+</ul>
+<pre><code>&#x4E8C;&#x53C9;&#x641C;&#x7D22;&#x6811;(Binary Search Tree&#xFF0C;&#x7B80;&#x79F0;BST)&#x662F;&#x4E00;&#x79CD;&#x5F88;&#x5E38;&#x7528;&#x7684;&#x4E8C;&#x53C9;&#x6811;&#x3002;&#x5B83;&#x5B9A;&#x4E49;
+&#x4E00;&#x4E2A;&#x4E8C;&#x53C9;&#x6811;&#x4E2D;&#xFF0C;&#x4EFB;&#x610F;&#x8282;&#x70B9;&#x7684;&#x503C;&#x8981;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;&#x5DE6;&#x5B50;&#x6811;&#x6240;&#x6709;&#x8282;&#x70B9;&#x7684;&#x503C;&#xFF0C;&#x4E14;&#x8981;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;&#x53F3;
+&#x8FB9;&#x5B50;&#x6811;&#x7684;&#x6240;&#x6709;&#x8282;&#x70B9;&#x7684;&#x503C;&#x3002;
+</code></pre><ul>
+<li>&#x57FA;&#x672C;&#x6A21;&#x677F;</li>
+</ul>
+<pre><code>void traverse(TreeNode root) {
+    // root &#x9700;&#x8981;&#x505A;&#x4EC0;&#x4E48;&#xFF1F;&#x5728;&#x8FD9;&#x505A;&#x3002;
+    // &#x5176;&#x4ED6;&#x7684;&#x4E0D;&#x7528; root &#x64CD;&#x5FC3;&#xFF0C;&#x629B;&#x7ED9;&#x6846;&#x67B6;
+    traverse(root.left);
+    traverse(root.right);
+}
+</code></pre><ul>
+<li>TreeNode&#x7C7B;</li>
+</ul>
+<pre><code>public class TreeNode {
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+
+    public TreeNode() {
+    }
+
+    public TreeNode(int x) {
+        val = x;
+    }
+
+    public TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+</code></pre><h4 id="&#x9A8C;&#x8BC1;">&#x9A8C;&#x8BC1;</h4>
+<p><a href="../../images/Arithmetic/isValidBST.PNG" data-lightbox="95286a34-7e3d-4f89-8adf-2768509d004b" data-title="isValidBST"><img src="../../images/Arithmetic/isValidBST.PNG" alt="isValidBST"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code>public boolean isValidBST(TreeNode root) {
+    return isValidBST(root, null, null);
+}
+
+Boolean isValidBST(TreeNode root, TreeNode min, TreeNode max) {
+    if (root == null) {
+        return true;
+    }
+    if (min != null &amp;&amp; root.val &lt;= min.val) {
+        return false;
+    }
+    if (max != null &amp;&amp; root.val &gt;= max.val) {
+        return false;
+    }
+    return isValidBST(root.left, min, root) &amp;&amp; isValidBST(root.right, root, max);
+}
+</code></pre><h4 id="&#x76F8;&#x540C;&#x7684;&#x6811;">&#x76F8;&#x540C;&#x7684;&#x6811;</h4>
+<p><a href="../../images/Arithmetic/isSameTree.PNG" data-lightbox="79332ab4-9655-4e24-a9bf-ecdcef2730b3" data-title="isSameTree"><img src="../../images/Arithmetic/isSameTree.PNG" alt="isSameTree"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code>public boolean isSameTree(TreeNode p, TreeNode q) {
+    if (p == null &amp;&amp; q == null) {
+        return true;
+    }
+    if (p == null || q == null) {
+        return false;
+    }
+    if (p.val != q.val) {
+        return false;
+    }
+
+    return isSameTree(p.left, q.left) &amp;&amp; isSameTree(p.right, q.right);
+}
+</code></pre><h4 id="&#x641C;&#x7D22;">&#x641C;&#x7D22;</h4>
+<p><a href="../../images/Arithmetic/searchBST.PNG" data-lightbox="a063f5ed-7224-4046-bea9-2beafaf737e0" data-title="searchBST"><img src="../../images/Arithmetic/searchBST.PNG" alt="searchBST"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code>public TreeNode searchBST(TreeNode root, int val) {
+    if (root == null) {
+        return null;
+    }
+    if (root.val == val) {
+        return root;
+    } else if (root.val &lt; val) {
+        root = searchBST(root.right, val);
+    } else if (root.val &gt; val) {
+        root = searchBST(root.left, val);
+    }
+    return root;
+}
+</code></pre><h4 id="&#x5220;&#x9664;">&#x5220;&#x9664;</h4>
+<p><a href="../../images/Arithmetic/deleteNode.PNG" data-lightbox="bce2fb00-76c7-42d3-b812-174c68a5e2a9" data-title="deleteNode"><img src="../../images/Arithmetic/deleteNode.PNG" alt="deleteNode"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code>public TreeNode deleteNode(TreeNode root, int key) {
+    if (root == null) {
+        return null;
+    }
+    if (root.val == key) {
+        if (root.left == null) {
+            return root.right;
+        }
+        if (root.right == null) {
+            return root.left;
+        }
+        TreeNode minNode = getMinNode(root.right);
+        root.val = minNode.val;
+        root.right = deleteNode(root.right, minNode.val);
+    } else if (root.val &gt; key) {
+        root.left = deleteNode(root.left, key);
+    } else if (root.val &lt; key) {
+        root.right = deleteNode(root.right, key);
+    }
+    return root;
+}
+
+private TreeNode getMinNode(TreeNode node) {
+    while (node.left != null) {
+        node = node.left;
+    }
+    return node;
+}
+</code></pre><h4 id="&#x63D2;&#x5165;">&#x63D2;&#x5165;</h4>
+<p><a href="../../images/Arithmetic/insertIntoBST.PNG" data-lightbox="fb3d3f57-14e1-4fe4-af59-b68aebe3927a" data-title="insertIntoBST"><img src="../../images/Arithmetic/insertIntoBST.PNG" alt="insertIntoBST"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code>public TreeNode insertIntoBST(TreeNode root, int val) {
+    if (root == null) {
+        return new TreeNode(val);
+    }
+    if (root.val &lt; val) {
+        root.right = insertIntoBST(root.right, val);
+    }
+    if (root.val &gt; val) {
+        root.left = insertIntoBST(root.left, val);
+    }
+    return root;
+}
+</code></pre>
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="DynamicProgramming.html" class="navigation navigation-prev " aria-label="Previous page: 动态规划">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="DFS.html" class="navigation navigation-next " aria-label="Next page: DFS">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"二叉搜索树","level":"1.14.4","depth":2,"next":{"title":"DFS","level":"1.14.5","depth":2,"path":"pages/arithmetic/DFS.md","ref":"pages/arithmetic/DFS.md","articles":[]},"previous":{"title":"动态规划","level":"1.14.3","depth":2,"path":"pages/arithmetic/DynamicProgramming.md","ref":"pages/arithmetic/DynamicProgramming.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","lightbox","page-treeview","-lunr","-search","search-pro","-sharing","sharing-plus","back-to-top-button","code","splitter","chapter-fold","popup","custom-favicon","livereload"],"pluginsConfig":{"page-treeview":{"collapsed":false,"copyright":"Copyright &#169; aleen42","minHeaderCount":"2","minHeaderDeep":"2"},"chapter-fold":{},"styles":{"website":"styles/website.css"},"livereload":{},"splitter":{},"search-pro":{},"author":"sonin","sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/Title/favicon.ico","lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"title":"面试","custom-favicon":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":true,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":true},"description":"面试宝典","theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"pages/arithmetic/BinarySearchTree.md","mtime":"2021-04-24T01:46:06.497Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-14T09:34:06.148Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-hide-element/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lightbox/js/lightbox.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

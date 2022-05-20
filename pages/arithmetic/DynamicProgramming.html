@@ -1,0 +1,1532 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>动态规划 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-lightbox/css/lightbox.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="BinarySearchTree.html" />
+    
+    
+    <link rel="prev" href="Greedy.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试宝典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Java.html">
+            
+                <a href="../Java.html">
+            
+                    
+                    Java专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java/Base.html">
+            
+                <a href="../java/Base.html">
+            
+                    
+                    基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java/Collection.html">
+            
+                <a href="../java/Collection.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java/Thread.html">
+            
+                <a href="../java/Thread.html">
+            
+                    
+                    线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java/Concurrence.html">
+            
+                <a href="../java/Concurrence.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java/JVM.html">
+            
+                <a href="../java/JVM.html">
+            
+                    
+                    虚拟机
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DesignPatterns.html">
+            
+                <a href="../DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network.html">
+            
+                <a href="../Network.html">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Database.html">
+            
+                <a href="../Database.html">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../SSM.html">
+            
+                <a href="../SSM.html">
+            
+                    
+                    SSM框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Redis.html">
+            
+                <a href="../Redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Elasticsearch.html">
+            
+                <a href="../Elasticsearch.html">
+            
+                    
+                    Elasticsearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Zookeeper.html">
+            
+                <a href="../Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Kafka.html">
+            
+                <a href="../Kafka.html">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../Eureka.html">
+            
+                <a href="../Eureka.html">
+            
+                    
+                    Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Dubbo.html">
+            
+                <a href="../Dubbo.html">
+            
+                    
+                    Dubbo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../MicroService.html">
+            
+                <a href="../MicroService.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../Arithmetic.html">
+            
+                <a href="../Arithmetic.html">
+            
+                    
+                    算法专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../DataStructure.html">
+            
+                <a href="../DataStructure.html">
+            
+                    
+                    数据结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="Greedy.html">
+            
+                <a href="Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.14.3" data-path="DynamicProgramming.html">
+            
+                <a href="DynamicProgramming.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="BinarySearchTree.html">
+            
+                <a href="BinarySearchTree.html">
+            
+                    
+                    二叉搜索树
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="DFS.html">
+            
+                <a href="DFS.html">
+            
+                    
+                    DFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="BFS.html">
+            
+                <a href="BFS.html">
+            
+                    
+                    BFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="SlidingWindow.html">
+            
+                <a href="SlidingWindow.html">
+            
+                    
+                    滑动窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="DoublePoint.html">
+            
+                <a href="DoublePoint.html">
+            
+                    
+                    双指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="IntervalDispatch.html">
+            
+                <a href="IntervalDispatch.html">
+            
+                    
+                    区间调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="MonotonousStackAndQueue.html">
+            
+                <a href="MonotonousStackAndQueue.html">
+            
+                    
+                    单调栈/队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="Factorial.html">
+            
+                <a href="Factorial.html">
+            
+                    
+                    阶乘
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="BinarySearch.html">
+            
+                <a href="BinarySearch.html">
+            
+                    
+                    二分法查找
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="ReservoirSampling.html">
+            
+                <a href="ReservoirSampling.html">
+            
+                    
+                    水塘抽样
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="BitManipulation.html">
+            
+                <a href="BitManipulation.html">
+            
+                    
+                    位操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="Composite.html">
+            
+                <a href="Composite.html">
+            
+                    
+                    综合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Deploy.html">
+            
+                <a href="../Deploy.html">
+            
+                    
+                    服务部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../Introduction.html">
+            
+                <a href="../Introduction.html">
+            
+                    
+                    自我/项目概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../InterviewSkill.html">
+            
+                <a href="../InterviewSkill.html">
+            
+                    
+                    面试技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../Review.html">
+            
+                <a href="../Review.html">
+            
+                    
+                    面试真题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../review/ReviewI.html">
+            
+                <a href="../review/ReviewI.html">
+            
+                    
+                    题卷I
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../review/ReviewII.html">
+            
+                <a href="../review/ReviewII.html">
+            
+                    
+                    题卷II
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../Question.html">
+            
+                <a href="../Question.html">
+            
+                    
+                    实战问题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../question/QuestionI.html">
+            
+                <a href="../question/QuestionI.html">
+            
+                    
+                    问题I
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../Ending.html">
+            
+                <a href="../Ending.html">
+            
+                    
+                    后记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >动态规划</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div class="treeview__container"><div class="treeview__container-title"><span class="treeview__main-title">Treeview</span><span class="treeview__copyright">Copyright &#xA9; aleen42 all right reserved, powered by <a href="https://github.com/aleen42" target="_blank">aleen42</a></span></div><ul>
+<li><div><a href="#&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;">&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;</a><i></i></div></li>
+<li><div><a href="#&#x51D1;&#x96F6;&#x94B1;&#x95EE;&#x9898;">&#x51D1;&#x96F6;&#x94B1;&#x95EE;&#x9898;</a><i></i></div></li>
+<li><div><a href="#&#x76EE;&#x6807;&#x548C;">&#x76EE;&#x6807;&#x548C;</a><i></i></div></li>
+<li><div><a href="#&#x6700;&#x957F;&#x9012;&#x589E;&#x5B50;&#x5E8F;&#x5217;">&#x6700;&#x957F;&#x9012;&#x589E;&#x5B50;&#x5E8F;&#x5217;</a><i></i></div></li>
+<li><div><a href="#&#x4FC4;&#x7F57;&#x65AF;&#x5957;&#x5A03;&#x4FE1;&#x5C01;&#x95EE;&#x9898;">&#x4FC4;&#x7F57;&#x65AF;&#x5957;&#x5A03;&#x4FE1;&#x5C01;&#x95EE;&#x9898;</a><i></i></div></li>
+<li><div><a href="#&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x548C;">&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x548C;</a><i></i></div></li>
+<li><div><a href="#&#x6700;&#x957F;&#x516C;&#x5171;&#x5B50;&#x5E8F;&#x5217;">&#x6700;&#x957F;&#x516C;&#x5171;&#x5B50;&#x5E8F;&#x5217;</a><i></i></div></li>
+<li><div><a href="#&#x5206;&#x5272;&#x7B49;&#x548C;&#x5B50;&#x96C6;">&#x5206;&#x5272;&#x7B49;&#x548C;&#x5B50;&#x96C6;</a><i></i></div></li>
+<li><div><a href="#&#x96F6;&#x94B1;&#x5151;&#x6362;-ii">&#x96F6;&#x94B1;&#x5151;&#x6362; II</a><i></i></div></li>
+<li><div><a href="#&#x77F3;&#x5B50;&#x6E38;&#x620F;">&#x77F3;&#x5B50;&#x6E38;&#x620F;</a><i></i></div></li>
+<li><div><a href="#&#x56DB;&#x952E;&#x952E;&#x76D8;">&#x56DB;&#x952E;&#x952E;&#x76D8;</a><i></i></div></li>
+<li><div><a href="#&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;">&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;</a><i></i></div></li>
+<li><div><a href="#&#x9E21;&#x86CB;&#x6389;&#x843D;">&#x9E21;&#x86CB;&#x6389;&#x843D;</a><i></i></div></li>
+<li><div><a href="#&#x6233;&#x6C14;&#x7403;">&#x6233;&#x6C14;&#x7403;</a><i></i></div></li>
+<li><div><a href="#&#x4E70;&#x5356;&#x80A1;&#x7968;&#x7684;&#x6700;&#x4F73;&#x65F6;&#x673A;">&#x4E70;&#x5356;&#x80A1;&#x7968;&#x7684;&#x6700;&#x4F73;&#x65F6;&#x673A;</a><i></i></div></li>
+<li><div><a href="#&#x5B9E;&#x73B0;strstr">&#x5B9E;&#x73B0;strStr()</a><i></i></div></li>
+<li><div><a href="#&#x7F16;&#x8F91;&#x8DDD;&#x79BB;">&#x7F16;&#x8F91;&#x8DDD;&#x79BB;</a><i></i></div></li>
+</ul>
+</div>
+
+<h4 id="&#x52A8;&#x6001;&#x89C4;&#x5212;">&#x52A8;&#x6001;&#x89C4;&#x5212;</h4>
+<ul>
+<li>&#x57FA;&#x672C;&#x6A21;&#x677F;</li>
+</ul>
+<pre><code>// &#x521D;&#x59CB;&#x5316;base
+dp[0][0][...] = base
+// &#x8FDB;&#x884C;&#x72B6;&#x6001;&#x8F6C;&#x79FB;
+for &#x72B6;&#x6001;1 in &#x72B6;&#x6001;1&#x7684;&#x6240;&#x6709;&#x53D6;&#x503C;:
+    for &#x72B6;&#x6001;2 in &#x72B6;&#x6001;2&#x7684;&#x6240;&#x6709;&#x53D6;&#x503C;:
+        for ...
+            dp[&#x72B6;&#x6001;1][&#x72B6;&#x6001;2][...] = &#x6C42;&#x6700;&#x503C;(&#x9009;&#x62E9;1, &#x9009;&#x62E9;2...)
+</code></pre><h4 id="&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;">&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;</h4>
+<p><a href="../../images/Arithmetic/fib.PNG" data-lightbox="04b499e7-8527-49f9-8b24-7cb544afdb34" data-title="fib"><img src="../../images/Arithmetic/fib.PNG" alt="fib"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N)</span> </span>{
+        <span class="hljs-keyword">if</span> (N &lt; <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        Map&lt;Integer, Integer&gt; memory = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">2</span>);
+        <span class="hljs-keyword">return</span> helper(memory, N);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> Integer <span class="hljs-title">helper</span><span class="hljs-params">(Map&lt;Integer, Integer&gt; memory, <span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span> || n == <span class="hljs-number">2</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">if</span> (memory.get(n) != <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">return</span> memory.get(n);
+        }
+        memory.put(n, helper(memory, n - <span class="hljs-number">1</span>) + helper(memory, n - <span class="hljs-number">2</span>));
+        <span class="hljs-keyword">return</span> memory.get(n);
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N)</span> </span>{
+        <span class="hljs-keyword">if</span> (N == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">if</span> (N == <span class="hljs-number">1</span> || N == <span class="hljs-number">2</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N + <span class="hljs-number">1</span>];
+        dp[<span class="hljs-number">1</span>] = dp[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>; i &lt;= N; i++) {
+            dp[i] = dp[i - <span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">2</span>];
+        }
+        <span class="hljs-keyword">return</span> dp[N];
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E09;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N)</span> </span>{
+        <span class="hljs-keyword">if</span> (N == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">if</span> (N == <span class="hljs-number">1</span> || N == <span class="hljs-number">2</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">int</span> prev = <span class="hljs-number">1</span>, cur = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">3</span>; i &lt;= N; i++) {
+            <span class="hljs-keyword">int</span> sum = prev + cur;
+            prev = cur;
+            cur = sum;
+        }
+        <span class="hljs-keyword">return</span> cur;
+    }
+}
+</code></pre>
+<h4 id="&#x51D1;&#x96F6;&#x94B1;&#x95EE;&#x9898;">&#x51D1;&#x96F6;&#x94B1;&#x95EE;&#x9898;</h4>
+<p><a href="../../images/Arithmetic/coinChange.PNG" data-lightbox="51bf9b97-5e70-4fe1-9119-ba2d27e9ae82" data-title="coinChange"><img src="../../images/Arithmetic/coinChange.PNG" alt="coinChange"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+   <span class="hljs-keyword">private</span> Map&lt;Integer, Integer&gt; dpMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] coins, <span class="hljs-keyword">int</span> amount)</span> </span>{
+        <span class="hljs-keyword">return</span> dp(coins, amount);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> n)</span> </span>{
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">if</span> (dpMap.containsKey(n)) {
+            <span class="hljs-keyword">return</span> dpMap.get(n);
+        }
+        <span class="hljs-keyword">int</span> res = Integer.MAX_VALUE;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> item : arr) {
+            <span class="hljs-keyword">int</span> subProblem = dp(arr, n - item);
+            <span class="hljs-keyword">if</span> (subProblem == -<span class="hljs-number">1</span>) {
+                <span class="hljs-keyword">continue</span>;
+            }
+            res = Math.min(res, <span class="hljs-number">1</span> + subProblem);
+        }
+        <span class="hljs-keyword">if</span> (res == Integer.MAX_VALUE) {
+            res = -<span class="hljs-number">1</span>;
+        }
+        dpMap.put(n, res);
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] coins, <span class="hljs-keyword">int</span> amount)</span> </span>{
+        <span class="hljs-keyword">int</span>[] dpTable = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[amount + <span class="hljs-number">1</span>];
+        Arrays.fill(dpTable, amount + <span class="hljs-number">1</span>);
+        dpTable[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; dpTable.length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> coin : coins) {
+                <span class="hljs-keyword">if</span> (i - coin &lt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">continue</span>;
+                }
+                dpTable[i] = Math.min(dpTable[i], <span class="hljs-number">1</span> + dpTable[i - coin]);
+            }
+        }
+        <span class="hljs-keyword">if</span> (dpTable[amount] == amount + <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> dpTable[amount];
+        }
+    }
+}
+</code></pre>
+<h4 id="&#x76EE;&#x6807;&#x548C;">&#x76EE;&#x6807;&#x548C;</h4>
+<p><a href="../../images/Arithmetic/findTargetSumWays.PNG" data-lightbox="03a512cf-dc81-4ec3-b1df-61ce204afdbe" data-title="findTargetSumWays"><img src="../../images/Arithmetic/findTargetSumWays.PNG" alt="findTargetSumWays"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;(&#x56DE;&#x6EAF;&#x6CD5;)</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findTargetSumWays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> S)</span> </span>{
+        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        backtrack(nums, <span class="hljs-number">0</span>, S);
+        <span class="hljs-keyword">return</span> result;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">backtrack</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> rest)</span> </span>{
+        <span class="hljs-keyword">if</span> (i == nums.length) {
+            <span class="hljs-keyword">if</span> (rest == <span class="hljs-number">0</span>) {
+                result++;
+            }
+            <span class="hljs-keyword">return</span>;
+        }
+        rest += nums[i];
+        backtrack(nums, i + <span class="hljs-number">1</span>, rest);
+        rest -= nums[i];
+
+        rest -= nums[i];
+        backtrack(nums, i + <span class="hljs-number">1</span>, rest);
+        rest += nums[i];
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;(&#x52A8;&#x6001;&#x89C4;&#x5212;)</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    Map&lt;String, Integer&gt; dpMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findTargetSumWays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> S)</span> </span>{
+        <span class="hljs-keyword">if</span> (nums.length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">return</span> dp(nums, <span class="hljs-number">0</span>, S);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> rest)</span> </span>{
+        <span class="hljs-keyword">if</span> (i == nums.length) {
+            <span class="hljs-keyword">if</span> (rest == <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        String key = i + <span class="hljs-string">&quot;,&quot;</span> + rest;
+        <span class="hljs-keyword">if</span> (dpMap.containsKey(key)) {
+            <span class="hljs-keyword">return</span> dpMap.get(key);
+        }
+        <span class="hljs-keyword">int</span> result = dp(nums, i + <span class="hljs-number">1</span>, rest - nums[i]) + dp(nums, i + <span class="hljs-number">1</span>, rest + nums[i]);
+        dpMap.put(key, result);
+        <span class="hljs-keyword">return</span> result;
+    }
+}
+</code></pre>
+<h4 id="&#x6700;&#x957F;&#x9012;&#x589E;&#x5B50;&#x5E8F;&#x5217;">&#x6700;&#x957F;&#x9012;&#x589E;&#x5B50;&#x5E8F;&#x5217;</h4>
+<p><a href="../../images/Arithmetic/lengthOfLIS.PNG" data-lightbox="ad108656-4a93-4cb1-94ae-da7b409390c6" data-title="lengthOfLIS"><img src="../../images/Arithmetic/lengthOfLIS.PNG" alt="lengthOfLIS"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[nums.length];
+        Arrays.fill(dp, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) {
+                <span class="hljs-keyword">if</span> (nums[i] &gt; nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + <span class="hljs-number">1</span>);
+                }
+            }
+        }
+
+        <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> value : dp) {
+            res = Math.max(res, value);
+        }
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<h4 id="&#x4FC4;&#x7F57;&#x65AF;&#x5957;&#x5A03;&#x4FE1;&#x5C01;&#x95EE;&#x9898;">&#x4FC4;&#x7F57;&#x65AF;&#x5957;&#x5A03;&#x4FE1;&#x5C01;&#x95EE;&#x9898;</h4>
+<p><a href="../../images/Arithmetic/maxEnvelopes.PNG" data-lightbox="88fbef67-1803-44de-951e-5ddc76116b8b" data-title="maxEnvelopes"><img src="../../images/Arithmetic/maxEnvelopes.PNG" alt="maxEnvelopes"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] envelopes)</span> </span>{
+        <span class="hljs-keyword">int</span> length = envelopes.length;
+        Arrays.sort(envelopes, (o1, o2) -&gt; o1[<span class="hljs-number">0</span>] == o2[<span class="hljs-number">0</span>] ? (o2[<span class="hljs-number">1</span>] - o1[<span class="hljs-number">1</span>]) : (o1[<span class="hljs-number">0</span>] - o2[<span class="hljs-number">0</span>]));
+        <span class="hljs-keyword">int</span>[] height = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[length];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+            height[i] = envelopes[i][<span class="hljs-number">1</span>];
+        }
+        <span class="hljs-keyword">return</span> lengthOfLIS(height);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> piles = <span class="hljs-number">0</span>, n = nums.length;
+        <span class="hljs-keyword">int</span>[] top = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> poker : nums) {
+            <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>, right = piles;
+            <span class="hljs-keyword">while</span> (left &lt; right) {
+                <span class="hljs-keyword">int</span> mid = (left + right) / <span class="hljs-number">2</span>;
+                <span class="hljs-keyword">if</span> (top[mid] &gt;= poker) {
+                    right = mid;
+                } <span class="hljs-keyword">else</span> {
+                    left = mid + <span class="hljs-number">1</span>;
+                }
+            }
+            <span class="hljs-keyword">if</span> (left == piles) {
+                piles++;
+            }
+            top[left] = poker;
+        }
+        <span class="hljs-keyword">return</span> piles;
+    }
+}
+</code></pre>
+<h4 id="&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x548C;">&#x6700;&#x5927;&#x5B50;&#x5E8F;&#x548C;</h4>
+<p><a href="../../images/Arithmetic/maxSubArray.PNG" data-lightbox="91167f57-0e70-45f3-9d26-e9de3b0219cc" data-title="maxSubArray"><img src="../../images/Arithmetic/maxSubArray.PNG" alt="maxSubArray"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> length = nums.length;
+        <span class="hljs-keyword">if</span> (length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[length];
+        dp[<span class="hljs-number">0</span>] = nums[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; length; i++) {
+            dp[i] = Math.max(nums[i], nums[i] + dp[i - <span class="hljs-number">1</span>]);
+        }
+        <span class="hljs-keyword">int</span> res = Integer.MIN_VALUE;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; length; i++) {
+            res = Math.max(res, dp[i]);
+        }
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxSubArray</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> length = nums.length;
+        <span class="hljs-keyword">if</span> (length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">int</span> cur = nums[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">int</span> next, res = cur;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; length; i++) {
+            next = Math.max(nums[i], nums[i] + cur);
+            cur = next;
+            res = Math.max(res, next);
+        }
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<h4 id="&#x6700;&#x957F;&#x516C;&#x5171;&#x5B50;&#x5E8F;&#x5217;">&#x6700;&#x957F;&#x516C;&#x5171;&#x5B50;&#x5E8F;&#x5217;</h4>
+<p><a href="../../images/Arithmetic/longestCommonSubsequence.PNG" data-lightbox="066d4b80-d36e-479f-8e0d-1028d004b1f8" data-title="longestCommonSubsequence"><img src="../../images/Arithmetic/longestCommonSubsequence.PNG" alt="longestCommonSubsequence"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-keyword">private</span> Map&lt;String, Integer&gt; dpMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">2</span>);
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>{
+        <span class="hljs-keyword">return</span> dp(text1.toCharArray(), text2.toCharArray(), text1.length() - <span class="hljs-number">1</span>, text2.length() - <span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] str1, <span class="hljs-keyword">char</span>[] str2, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>{
+        <span class="hljs-keyword">if</span> (i == -<span class="hljs-number">1</span> || j == -<span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">if</span> (dpMap.containsKey(i + <span class="hljs-string">&quot;-&quot;</span> + j)) {
+            <span class="hljs-keyword">return</span> dpMap.get(i + <span class="hljs-string">&quot;-&quot;</span> + j);
+        }
+        <span class="hljs-keyword">int</span> res;
+        <span class="hljs-keyword">if</span> (str1[i] == str2[j]) {
+            res = dp(str1, str2, i - <span class="hljs-number">1</span>, j - <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>;
+        } <span class="hljs-keyword">else</span> {
+            res = Math.max(dp(str1, str2, i - <span class="hljs-number">1</span>, j), dp(str1, str2, i, j - <span class="hljs-number">1</span>));
+        }
+        dpMap.put(i + <span class="hljs-string">&quot;-&quot;</span> + j, res);
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">longestCommonSubsequence</span><span class="hljs-params">(String text1, String text2)</span> </span>{
+        <span class="hljs-keyword">int</span> m = text1.length(), n = text2.length();
+        <span class="hljs-comment">// &#x6784;&#x5EFA; DP table &#x548C; base case</span>
+        <span class="hljs-comment">// dp[i][j] &#x8868;&#x793A;&#xFF1A; &#x5B57;&#x7B26;&#x4E32; str1[0:i] &#x548C;&#x5B57;&#x7B26;&#x4E32; str2[0:j] &#x7684;&#x6700;&#x5927;&#x516C;&#x5171;&#x5B50;&#x5E8F;&#x5217;</span>
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];
+        <span class="hljs-comment">// &#x8FDB;&#x884C;&#x72B6;&#x6001;&#x8F6C;&#x79FB;</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) {
+                <span class="hljs-comment">// &#x82E5;&#x4E24;&#x4E2A;&#x5B57;&#x7B26;&#x76F8;&#x7B49;&#xFF0C;&#x5FC5;&#x7136;&#x53EF;&#x4EE5;&#x6784;&#x6210;&#x5B50;&#x95EE;&#x9898;&#x7684;&#x6700;&#x4F18;&#x89E3;</span>
+                <span class="hljs-keyword">if</span> (text1.charAt(i - <span class="hljs-number">1</span>) == text2.charAt(j - <span class="hljs-number">1</span>)) {
+                    <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x5B58;&#x5728;&#x4E8E;lcs&#x4E4B;&#x4E2D;</span>
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-comment">// &#x6B64;&#x65F6;text1[i]!= text2[j]&#x5219;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x5728;lcs&#x4E2D;(&#x8981;&#x4E48;text1[i]&#x4E0D;&#x5728;&#xFF0C;&#x8981; text2[j]&#x4E0D;&#x5728;&#xFF0C;&#x6216;&#x8005;&#x90FD;&#x4E0D;&#x5728;)</span>
+                    <span class="hljs-comment">// &#x6240;&#x4EE5;&#x5F53;&#x524D;&#x7ED3;&#x679C;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x4E4B;&#x524D;&#x7ED3;&#x679C;&#x7684;&#x4E2D;&#x6700;&#x5927;&#x7684;&#x90A3;&#x4E00;&#x4E2A;</span>
+                    dp[i][j] = Math.max(dp[i - <span class="hljs-number">1</span>][j], dp[i][j - <span class="hljs-number">1</span>]);
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[m][n];
+    }
+}
+</code></pre>
+<h4 id="&#x5206;&#x5272;&#x7B49;&#x548C;&#x5B50;&#x96C6;">&#x5206;&#x5272;&#x7B49;&#x548C;&#x5B50;&#x96C6;</h4>
+<p><a href="../../images/Arithmetic/canPartition.PNG" data-lightbox="ef3c5f58-ff74-4878-a64c-0cae8ef9d80d" data-title="canPartition"><img src="../../images/Arithmetic/canPartition.PNG" alt="canPartition"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) {
+            sum += num;
+        }
+        <span class="hljs-keyword">if</span> (sum % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+        <span class="hljs-keyword">int</span> length = nums.length;
+        sum /= <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[length + <span class="hljs-number">1</span>][sum + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; dp.length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; dp[<span class="hljs-number">0</span>].length; j++) {
+                dp[i][j] = <span class="hljs-keyword">false</span>;
+            }
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= length; i++) {
+            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= sum; j++) {
+                <span class="hljs-keyword">if</span> (j - nums[i - <span class="hljs-number">1</span>] &lt; <span class="hljs-number">0</span>) {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];
+                } <span class="hljs-keyword">else</span> {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] || dp[i - <span class="hljs-number">1</span>][j - nums[i - <span class="hljs-number">1</span>]];
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[length][sum];
+    }
+}
+</code></pre>
+<h4 id="&#x96F6;&#x94B1;&#x5151;&#x6362;-ii">&#x96F6;&#x94B1;&#x5151;&#x6362; II</h4>
+<p><a href="../../images/Arithmetic/change.PNG" data-lightbox="35e306ad-2d83-4a31-804f-ac63a086b1ab" data-title="change"><img src="../../images/Arithmetic/change.PNG" alt="change"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">change</span><span class="hljs-params">(<span class="hljs-keyword">int</span> amount, <span class="hljs-keyword">int</span>[] coins)</span> </span>{
+        <span class="hljs-keyword">int</span> length = coins.length;
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[length + <span class="hljs-number">1</span>][amount + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= length; i++) {
+            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= length; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= amount; j++) {
+                <span class="hljs-keyword">if</span> (j - coins[i - <span class="hljs-number">1</span>] &gt;= <span class="hljs-number">0</span>) {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] + dp[i][j - coins[i - <span class="hljs-number">1</span>]];
+                } <span class="hljs-keyword">else</span> {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[length][amount];
+    }
+}
+</code></pre>
+<h4 id="&#x77F3;&#x5B50;&#x6E38;&#x620F;">&#x77F3;&#x5B50;&#x6E38;&#x620F;</h4>
+<p><a href="../../images/Arithmetic/stoneGame.PNG" data-lightbox="ced5c5bf-ad3c-4d49-96e5-93cb82b1f862" data-title="stoneGame"><img src="../../images/Arithmetic/stoneGame.PNG" alt="stoneGame"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">stoneGame</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] piles)</span> </span>{
+        <span class="hljs-keyword">int</span> n = piles.length;
+        <span class="hljs-keyword">int</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n][n][<span class="hljs-number">2</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i; j &lt; n; j++) {
+                dp[i][j][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+                dp[i][j][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;
+            }
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            dp[i][i][<span class="hljs-number">0</span>] = piles[i];
+            dp[i][i][<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= n - i; j++) {
+                <span class="hljs-keyword">int</span> k = i + j - <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">int</span> left = piles[j] + dp[j + <span class="hljs-number">1</span>][k][<span class="hljs-number">1</span>];
+                <span class="hljs-keyword">int</span> right = piles[k] + dp[j][k - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>];
+                <span class="hljs-keyword">if</span> (left &gt; right) {
+                    dp[j][k][<span class="hljs-number">0</span>] = left;
+                    dp[j][k][<span class="hljs-number">1</span>] = dp[j + <span class="hljs-number">1</span>][k][<span class="hljs-number">0</span>];
+                } <span class="hljs-keyword">else</span> {
+                    dp[j][k][<span class="hljs-number">0</span>] = right;
+                    dp[j][k][<span class="hljs-number">1</span>] = dp[j][k - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
+                }
+            }
+        }
+        <span class="hljs-keyword">int</span>[] res = dp[<span class="hljs-number">0</span>][n - <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">return</span> res[<span class="hljs-number">0</span>] - res[<span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>;
+    }
+}
+</code></pre>
+<h4 id="&#x56DB;&#x952E;&#x952E;&#x76D8;">&#x56DB;&#x952E;&#x952E;&#x76D8;</h4>
+<p><a href="../../images/Arithmetic/fourKeyboard.png" data-lightbox="5d5339e2-bbed-4073-a5a9-753c9f3cdf3c" data-title="fourKeyboard"><img src="../../images/Arithmetic/fourKeyboard.png" alt="fourKeyboard"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">// todo</span>
+</code></pre>
+<h4 id="&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;">&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x5339;&#x914D;</h4>
+<p><a href="../../images/Arithmetic/isMatch.PNG" data-lightbox="fd7d0bcf-924c-48c4-a2bd-b371aac56638" data-title="isMatch"><img src="../../images/Arithmetic/isMatch.PNG" alt="isMatch"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">// todo</span>
+</code></pre>
+<h4 id="&#x9E21;&#x86CB;&#x6389;&#x843D;">&#x9E21;&#x86CB;&#x6389;&#x843D;</h4>
+<p><a href="../../images/Arithmetic/superEggDrop.PNG" data-lightbox="b030dbce-d85e-4a3f-8847-59d3023da81b" data-title="superEggDrop"><img src="../../images/Arithmetic/superEggDrop.PNG" alt="superEggDrop"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">superEggDrop</span><span class="hljs-params">(<span class="hljs-keyword">int</span> K, <span class="hljs-keyword">int</span> N)</span> </span>{
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N + <span class="hljs-number">1</span>][K + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N + <span class="hljs-number">1</span>; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; K + <span class="hljs-number">1</span>; j++) {
+                dp[i][j] = <span class="hljs-number">0</span>;
+            }
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= K; j++) {
+            dp[<span class="hljs-number">1</span>][j] = <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= N; i++) {
+            dp[i][<span class="hljs-number">1</span>] = i;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= N; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">2</span>; j &lt;= K; j++) {
+                dp[i][j] = binaryValley(i, j, dp);
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[N][K];
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binaryValley</span><span class="hljs-params">(<span class="hljs-keyword">int</span> floors, <span class="hljs-keyword">int</span> eggs, <span class="hljs-keyword">int</span>[][] dp)</span> </span>{
+        <span class="hljs-keyword">int</span> left = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> right = floors;
+        <span class="hljs-keyword">while</span> (left &lt; right) {
+            <span class="hljs-keyword">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">int</span> broken = dp[mid - <span class="hljs-number">1</span>][eggs - <span class="hljs-number">1</span>];
+            <span class="hljs-keyword">int</span> notBroken = dp[floors - mid][eggs];
+            <span class="hljs-keyword">if</span> (notBroken &gt; broken) {
+                left = mid + <span class="hljs-number">1</span>;
+            } <span class="hljs-keyword">else</span> {
+                right = mid;
+            }
+        }
+        <span class="hljs-keyword">return</span> Math.max(dp[right - <span class="hljs-number">1</span>][eggs - <span class="hljs-number">1</span>], dp[floors - right][eggs]) + <span class="hljs-number">1</span>;
+    }
+}
+</code></pre>
+<h4 id="&#x6233;&#x6C14;&#x7403;">&#x6233;&#x6C14;&#x7403;</h4>
+<p><a href="../../images/Arithmetic/maxCoins.PNG" data-lightbox="d200a64c-cd03-4c8d-9cc0-c8bca4d9e565" data-title="maxCoins"><img src="../../images/Arithmetic/maxCoins.PNG" alt="maxCoins"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-comment">// todo</span>
+</code></pre>
+<h4 id="&#x4E70;&#x5356;&#x80A1;&#x7968;&#x7684;&#x6700;&#x4F73;&#x65F6;&#x673A;">&#x4E70;&#x5356;&#x80A1;&#x7968;&#x7684;&#x6700;&#x4F73;&#x65F6;&#x673A;</h4>
+<p><a href="../../images/Arithmetic/maxProfit.PNG" data-lightbox="1cab140f-7067-4564-9f32-4a853e23c114" data-title="maxProfit"><img src="../../images/Arithmetic/maxProfit.PNG" alt="maxProfit"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] prices)</span> </span>{
+        <span class="hljs-keyword">if</span> (prices.length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">int</span> n = prices.length;
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n][<span class="hljs-number">2</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+            <span class="hljs-keyword">if</span> (i == <span class="hljs-number">0</span>) {
+                dp[i][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
+                dp[i][<span class="hljs-number">1</span>] = -prices[i];
+                <span class="hljs-keyword">continue</span>;
+            }
+            dp[i][<span class="hljs-number">0</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>], dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>] + prices[i]);
+            dp[i][<span class="hljs-number">1</span>] = Math.max(dp[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>], -prices[i]);
+        }
+        <span class="hljs-keyword">return</span> dp[n - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>];
+    }
+}
+</code></pre>
+<h4 id="&#x5B9E;&#x73B0;strstr">&#x5B9E;&#x73B0;strStr()</h4>
+<p><a href="../../images/Arithmetic/strStr.PNG" data-lightbox="18bef3bd-1da8-4731-b3ee-3ec0fe0bdd25" data-title="strStr"><img src="../../images/Arithmetic/strStr.PNG" alt="strStr"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">KMP</span> </span>{
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] dp;
+        <span class="hljs-keyword">private</span> String pat;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">KMP</span><span class="hljs-params">(String pat)</span> </span>{
+            <span class="hljs-keyword">this</span>.pat = pat;
+            <span class="hljs-keyword">int</span> M = pat.length();
+            dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[M][<span class="hljs-number">256</span>];
+            dp[<span class="hljs-number">0</span>][pat.charAt(<span class="hljs-number">0</span>)] = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">int</span> X = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; M; j++) {
+                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; <span class="hljs-number">256</span>; c++) {
+                    dp[j][c] = dp[X][c];
+                }
+                dp[j][pat.charAt(j)] = j + <span class="hljs-number">1</span>;
+                X = dp[X][pat.charAt(j)];
+            }
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">search</span><span class="hljs-params">(String txt)</span> </span>{
+            <span class="hljs-keyword">int</span> M = pat.length();
+            <span class="hljs-keyword">int</span> N = txt.length();
+            <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) {
+                j = dp[j][txt.charAt(i)];
+                <span class="hljs-keyword">if</span> (j == M) {
+                    <span class="hljs-keyword">return</span> i - M + <span class="hljs-number">1</span>;
+                }
+            }
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        }
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">strStr</span><span class="hljs-params">(String haystack, String needle)</span> </span>{
+        <span class="hljs-keyword">if</span> (needle.length() == <span class="hljs-number">0</span>){
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        KMP kmp = <span class="hljs-keyword">new</span> KMP(needle);
+        <span class="hljs-keyword">return</span> kmp.search(haystack);
+    }
+}
+</code></pre>
+<h4 id="&#x7F16;&#x8F91;&#x8DDD;&#x79BB;">&#x7F16;&#x8F91;&#x8DDD;&#x79BB;</h4>
+<p><a href="../../images/Arithmetic/minDistance.PNG" data-lightbox="30ee17d8-75b5-4481-b69a-e074e19b05d2" data-title="minDistance"><img src="../../images/Arithmetic/minDistance.PNG" alt="minDistance"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E00;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-keyword">private</span> Map&lt;String, Integer&gt; dpMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(String word1, String word2)</span> </span>{
+        <span class="hljs-keyword">return</span> dp(word1.toCharArray(), word2.toCharArray(), word1.length() - <span class="hljs-number">1</span>, word2.length() - <span class="hljs-number">1</span>);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] word1, <span class="hljs-keyword">char</span>[] word2, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>{
+        <span class="hljs-keyword">if</span> (i == -<span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> j + <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">if</span> (j == -<span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">if</span> (dpMap.containsKey(i + <span class="hljs-string">&quot;-&quot;</span> + j)) {
+            <span class="hljs-keyword">return</span> dpMap.get(i + <span class="hljs-string">&quot;-&quot;</span> + j);
+        }
+        <span class="hljs-keyword">int</span> res;
+        <span class="hljs-keyword">if</span> (word1[i] == word2[j]) {
+            res = dp(word1, word2, i - <span class="hljs-number">1</span>, j - <span class="hljs-number">1</span>);
+        } <span class="hljs-keyword">else</span> {
+            res = Math.min(dp(word1, word2, i, j - <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, Math.min(dp(word1, word2, i - <span class="hljs-number">1</span>, j) + <span class="hljs-number">1</span>, dp(word1, word2, i - <span class="hljs-number">1</span>, j - <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>));
+        }
+        dpMap.put(i + <span class="hljs-string">&quot;-&quot;</span> + j, res);
+        <span class="hljs-keyword">return</span> res;
+    }
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x6CD5;&#x4E8C;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDistance</span><span class="hljs-params">(String word1, String word2)</span> </span>{
+        <span class="hljs-keyword">int</span> m = word1.length(), n = word2.length();
+        <span class="hljs-keyword">int</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[m + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) {
+            dp[i][<span class="hljs-number">0</span>] = i;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) {
+            dp[<span class="hljs-number">0</span>][j] = j;
+        }
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) {
+                <span class="hljs-keyword">if</span> (word1.charAt(i - <span class="hljs-number">1</span>) == word2.charAt(j - <span class="hljs-number">1</span>)) {
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>];
+                } <span class="hljs-keyword">else</span> {
+                    dp[i][j] = Math.min(dp[i - <span class="hljs-number">1</span>][j] + <span class="hljs-number">1</span>, Math.min(dp[i][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>, dp[i - <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>));
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> dp[m][n];
+    }
+}
+</code></pre>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Greedy.html" class="navigation navigation-prev " aria-label="Previous page: 贪心算法">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="BinarySearchTree.html" class="navigation navigation-next " aria-label="Next page: 二叉搜索树">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"动态规划","level":"1.14.3","depth":2,"next":{"title":"二叉搜索树","level":"1.14.4","depth":2,"path":"pages/arithmetic/BinarySearchTree.md","ref":"pages/arithmetic/BinarySearchTree.md","articles":[]},"previous":{"title":"贪心算法","level":"1.14.2","depth":2,"path":"pages/arithmetic/Greedy.md","ref":"pages/arithmetic/Greedy.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","lightbox","page-treeview","-lunr","-search","search-pro","-sharing","sharing-plus","back-to-top-button","code","splitter","chapter-fold","popup","custom-favicon","livereload"],"pluginsConfig":{"page-treeview":{"collapsed":false,"copyright":"Copyright &#169; aleen42","minHeaderCount":"2","minHeaderDeep":"2"},"chapter-fold":{},"styles":{"website":"styles/website.css"},"livereload":{},"splitter":{},"search-pro":{},"author":"sonin","sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/Title/favicon.ico","lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"title":"面试","custom-favicon":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":true,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":true},"description":"面试宝典","theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"pages/arithmetic/DynamicProgramming.md","mtime":"2021-04-24T01:46:06.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-14T09:34:06.148Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-hide-element/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lightbox/js/lightbox.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

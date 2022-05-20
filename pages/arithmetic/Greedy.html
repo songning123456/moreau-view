@@ -1,0 +1,945 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>贪心算法 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-lightbox/css/lightbox.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-treeview/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="DynamicProgramming.html" />
+    
+    
+    <link rel="prev" href="../DataStructure.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    面试宝典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Java.html">
+            
+                <a href="../Java.html">
+            
+                    
+                    Java专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../java/Base.html">
+            
+                <a href="../java/Base.html">
+            
+                    
+                    基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../java/Collection.html">
+            
+                <a href="../java/Collection.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../java/Thread.html">
+            
+                <a href="../java/Thread.html">
+            
+                    
+                    线程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../java/Concurrence.html">
+            
+                <a href="../java/Concurrence.html">
+            
+                    
+                    并发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../java/JVM.html">
+            
+                <a href="../java/JVM.html">
+            
+                    
+                    虚拟机
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../DesignPatterns.html">
+            
+                <a href="../DesignPatterns.html">
+            
+                    
+                    设计模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Network.html">
+            
+                <a href="../Network.html">
+            
+                    
+                    网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Database.html">
+            
+                <a href="../Database.html">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../SSM.html">
+            
+                <a href="../SSM.html">
+            
+                    
+                    SSM框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Redis.html">
+            
+                <a href="../Redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Elasticsearch.html">
+            
+                <a href="../Elasticsearch.html">
+            
+                    
+                    Elasticsearch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Zookeeper.html">
+            
+                <a href="../Zookeeper.html">
+            
+                    
+                    Zookeeper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../Kafka.html">
+            
+                <a href="../Kafka.html">
+            
+                    
+                    Kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../Eureka.html">
+            
+                <a href="../Eureka.html">
+            
+                    
+                    Eureka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Dubbo.html">
+            
+                <a href="../Dubbo.html">
+            
+                    
+                    Dubbo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../MicroService.html">
+            
+                <a href="../MicroService.html">
+            
+                    
+                    微服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../Arithmetic.html">
+            
+                <a href="../Arithmetic.html">
+            
+                    
+                    算法专题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../DataStructure.html">
+            
+                <a href="../DataStructure.html">
+            
+                    
+                    数据结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.14.2" data-path="Greedy.html">
+            
+                <a href="Greedy.html">
+            
+                    
+                    贪心算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="DynamicProgramming.html">
+            
+                <a href="DynamicProgramming.html">
+            
+                    
+                    动态规划
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="BinarySearchTree.html">
+            
+                <a href="BinarySearchTree.html">
+            
+                    
+                    二叉搜索树
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="DFS.html">
+            
+                <a href="DFS.html">
+            
+                    
+                    DFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="BFS.html">
+            
+                <a href="BFS.html">
+            
+                    
+                    BFS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.7" data-path="SlidingWindow.html">
+            
+                <a href="SlidingWindow.html">
+            
+                    
+                    滑动窗口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.8" data-path="DoublePoint.html">
+            
+                <a href="DoublePoint.html">
+            
+                    
+                    双指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.9" data-path="IntervalDispatch.html">
+            
+                <a href="IntervalDispatch.html">
+            
+                    
+                    区间调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.10" data-path="MonotonousStackAndQueue.html">
+            
+                <a href="MonotonousStackAndQueue.html">
+            
+                    
+                    单调栈/队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.11" data-path="Factorial.html">
+            
+                <a href="Factorial.html">
+            
+                    
+                    阶乘
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.12" data-path="BinarySearch.html">
+            
+                <a href="BinarySearch.html">
+            
+                    
+                    二分法查找
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.13" data-path="ReservoirSampling.html">
+            
+                <a href="ReservoirSampling.html">
+            
+                    
+                    水塘抽样
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.14" data-path="BitManipulation.html">
+            
+                <a href="BitManipulation.html">
+            
+                    
+                    位操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.15" data-path="Composite.html">
+            
+                <a href="Composite.html">
+            
+                    
+                    综合
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Deploy.html">
+            
+                <a href="../Deploy.html">
+            
+                    
+                    服务部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../Introduction.html">
+            
+                <a href="../Introduction.html">
+            
+                    
+                    自我/项目概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../InterviewSkill.html">
+            
+                <a href="../InterviewSkill.html">
+            
+                    
+                    面试技巧
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../Review.html">
+            
+                <a href="../Review.html">
+            
+                    
+                    面试真题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../review/ReviewI.html">
+            
+                <a href="../review/ReviewI.html">
+            
+                    
+                    题卷I
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../review/ReviewII.html">
+            
+                <a href="../review/ReviewII.html">
+            
+                    
+                    题卷II
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../Question.html">
+            
+                <a href="../Question.html">
+            
+                    
+                    实战问题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../question/QuestionI.html">
+            
+                <a href="../question/QuestionI.html">
+            
+                    
+                    问题I
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../Ending.html">
+            
+                <a href="../Ending.html">
+            
+                    
+                    后记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >贪心算法</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div class="treeview__container"><div class="treeview__container-title"><span class="treeview__main-title">Treeview</span><span class="treeview__copyright">Copyright &#xA9; aleen42 all right reserved, powered by <a href="https://github.com/aleen42" target="_blank">aleen42</a></span></div><ul>
+<li><div><a href="#&#x7528;&#x6700;&#x5C11;&#x6570;&#x91CF;&#x7684;&#x7BAD;&#x5F15;&#x7206;&#x6C14;&#x7403;">&#x7528;&#x6700;&#x5C11;&#x6570;&#x91CF;&#x7684;&#x7BAD;&#x5F15;&#x7206;&#x6C14;&#x7403;</a><i></i></div></li>
+<li><div><a href="#&#x8DF3;&#x8DC3;&#x6E38;&#x620F;">&#x8DF3;&#x8DC3;&#x6E38;&#x620F;</a><i></i></div></li>
+<li><div><a href="#&#x8DF3;&#x8DC3;&#x6E38;&#x620F;-ii">&#x8DF3;&#x8DC3;&#x6E38;&#x620F; II</a><i></i></div></li>
+</ul>
+</div>
+
+<h4 id="&#x65E0;&#x91CD;&#x53E0;&#x533A;&#x95F4;">&#x65E0;&#x91CD;&#x53E0;&#x533A;&#x95F4;</h4>
+<p><a href="../../images/Arithmetic/eraseOverlapIntervals.PNG" data-lightbox="018fc325-3abd-4caa-b1f6-d347663da25d" data-title="eraseOverlapIntervals"><img src="../../images/Arithmetic/eraseOverlapIntervals.PNG" alt="eraseOverlapIntervals"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">eraseOverlapIntervals</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] intervals)</span> </span>{
+        <span class="hljs-keyword">return</span> intervals.length - intervalSchedule(intervals);
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">intervalSchedule</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] intervals)</span> </span>{
+        <span class="hljs-keyword">if</span> (intervals.length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">1</span>]));
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> xEnd = intervals[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] interval : intervals) {
+            <span class="hljs-keyword">int</span> start = interval[<span class="hljs-number">0</span>];
+            <span class="hljs-keyword">if</span> (start &gt;= xEnd) {
+                count++;
+                xEnd = interval[<span class="hljs-number">1</span>];
+            }
+        }
+        <span class="hljs-keyword">return</span> count;
+    }
+}
+</code></pre>
+<h4 id="&#x7528;&#x6700;&#x5C11;&#x6570;&#x91CF;&#x7684;&#x7BAD;&#x5F15;&#x7206;&#x6C14;&#x7403;">&#x7528;&#x6700;&#x5C11;&#x6570;&#x91CF;&#x7684;&#x7BAD;&#x5F15;&#x7206;&#x6C14;&#x7403;</h4>
+<p><a href="../../images/Arithmetic/findMinArrowShots.PNG" data-lightbox="f5ddefff-b7e2-4f09-bdb1-636aa5ce08c2" data-title="findMinArrowShots"><img src="../../images/Arithmetic/findMinArrowShots.PNG" alt="findMinArrowShots"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findMinArrowShots</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] points)</span> </span>{
+        <span class="hljs-keyword">if</span> (points.length == <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+        Arrays.sort(points, Comparator.comparingInt(o -&gt; o[<span class="hljs-number">1</span>]));
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">int</span> xEnd = points[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] point : points) {
+            <span class="hljs-keyword">int</span> start = point[<span class="hljs-number">0</span>];
+            <span class="hljs-keyword">if</span> (start &gt; xEnd) {
+                count++;
+                xEnd = point[<span class="hljs-number">1</span>];
+            }
+        }
+        <span class="hljs-keyword">return</span> count;
+    }
+}
+</code></pre>
+<h4 id="&#x8DF3;&#x8DC3;&#x6E38;&#x620F;">&#x8DF3;&#x8DC3;&#x6E38;&#x620F;</h4>
+<p><a href="../../images/Arithmetic/canJump.PNG" data-lightbox="1fe691eb-5982-419e-a545-ad9fb04d8445" data-title="canJump"><img src="../../images/Arithmetic/canJump.PNG" alt="canJump"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canJump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span> farthest = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) {
+            farthest = Math.max(farthest, i + nums[i]);
+            <span class="hljs-keyword">if</span> (farthest &lt;= i) {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> farthest &gt;= n - <span class="hljs-number">1</span>;
+    }
+}
+</code></pre>
+<h4 id="&#x8DF3;&#x8DC3;&#x6E38;&#x620F;-ii">&#x8DF3;&#x8DC3;&#x6E38;&#x620F; II</h4>
+<p><a href="../../images/Arithmetic/jump.PNG" data-lightbox="20cdc6be-3386-4699-bed6-4b5e7e2b295c" data-title="jump"><img src="../../images/Arithmetic/jump.PNG" alt="jump"></a></p>
+<ul>
+<li>&#x89E3;&#x6CD5;</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">jump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+        <span class="hljs-keyword">int</span> n = nums.length;
+        <span class="hljs-keyword">int</span> end = <span class="hljs-number">0</span>, farthest = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> jumps = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n - <span class="hljs-number">1</span>; i++) {
+            farthest = Math.max(nums[i] + i, farthest);
+            <span class="hljs-keyword">if</span> (end == i) {
+                jumps++;
+                end = farthest;
+            }
+        }
+        <span class="hljs-keyword">return</span> jumps;
+    }
+}
+</code></pre>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../DataStructure.html" class="navigation navigation-prev " aria-label="Previous page: 数据结构">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="DynamicProgramming.html" class="navigation navigation-next " aria-label="Next page: 动态规划">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"贪心算法","level":"1.14.2","depth":2,"next":{"title":"动态规划","level":"1.14.3","depth":2,"path":"pages/arithmetic/DynamicProgramming.md","ref":"pages/arithmetic/DynamicProgramming.md","articles":[]},"previous":{"title":"数据结构","level":"1.14.1","depth":2,"path":"pages/DataStructure.md","ref":"pages/DataStructure.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","lightbox","page-treeview","-lunr","-search","search-pro","-sharing","sharing-plus","back-to-top-button","code","splitter","chapter-fold","popup","custom-favicon","livereload"],"pluginsConfig":{"page-treeview":{"collapsed":false,"copyright":"Copyright &#169; aleen42","minHeaderCount":"2","minHeaderDeep":"2"},"chapter-fold":{},"styles":{"website":"styles/website.css"},"livereload":{},"splitter":{},"search-pro":{},"author":"sonin","sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/Title/favicon.ico","lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"title":"面试","custom-favicon":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":true,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":true},"description":"面试宝典","theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"pages/arithmetic/Greedy.md","mtime":"2021-04-24T01:46:06.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-14T09:34:06.148Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-hide-element/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lightbox/js/lightbox.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing-plus/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
