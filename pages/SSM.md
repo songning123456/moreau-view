@@ -172,8 +172,8 @@ AOP代表的是一个横向的关系，将“对象”比作一个空心的圆�
 
 | 代理方式 | 解释 | 
 | :----- | :----- | 
-| <div style="width: 100px">JDK动态代理</div> | 其代理对象必须是某个接口的实现，它是通过在运行期间创建一个接口的实现类来完成对目标对象的代理，其核心的两个类是InvocationHandler和Proxy | 
-| <div style="width: 100px">CGLIB代理</div> | 实现原理类似于JDK动态代理，只是它在运行期间生成的代理对象是针对目标类扩展的子类。CGLIB是高效的代码生成包，底层是依靠ASM(开源的java字节码编辑类库)操作字节码实现的，性能比JDK强；需要引入包asm.jar和cglib.jar | 
+| <div style="width: 100px">JDK动态代理</div> | 其代理对象必须是某个接口的实现，它是通过在运行期间创建一个接口的实现类来完成对目标对象的代理，其核心的两个类是InvocationHandler和Proxy。 | 
+| <div style="width: 100px">CGLIB代理</div> | 实现原理类似于JDK动态代理，只是它在运行期间生成的代理对象是针对目标类扩展的子类。CGLIB是高效的代码生成包，底层是依靠ASM(开源的java字节码编辑类库)操作字节码实现的，性能比JDK强；需要引入包asm.jar和cglib.jar。 | 
 
 
 #### Spring事务的传播行为？
@@ -259,10 +259,10 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
 #### Restful的优势？
 | 优势 | 解释 | 
 | :----- | :----- | 
-| <div style="width: 150px">客户-服务器</div> | 客户-服务器约束背后的原则是分离关注点。通过分离用户接口和数据存储这两个关注点，改善了用户接口跨多个平台的可移植性；同时通过简化服务器组件，改善了系统的可伸缩性 | 
-| <div style="width: 150px">无状态</div> | 通信在本质上是无状态的，改善了可见性、可靠性、可伸缩性 | 
-| <div style="width: 150px">缓存</div> | 改善了网络效率减少一系列交互的平均延迟时间，来提高效率、可伸缩性和用户可觉察的性能 | 
-| <div style="width: 150px">统一接口</div> | REST架构风格区别于其他基于网络的架构风格的核心特征是，它强调组件之间要有一个统一的接口 | 
+| <div style="width: 150px">客户-服务器</div> | 客户-服务器约束背后的原则是分离关注点。通过分离用户接口和数据存储这两个关注点，改善了用户接口跨多个平台的可移植性；同时通过简化服务器组件，改善了系统的可伸缩性。 | 
+| <div style="width: 150px">无状态</div> | 通信在本质上是无状态的，改善了可见性、可靠性、可伸缩性。 | 
+| <div style="width: 150px">缓存</div> | 改善了网络效率减少一系列交互的平均延迟时间，来提高效率、可伸缩性和用户可觉察的性能。 | 
+| <div style="width: 150px">统一接口</div> | REST架构风格区别于其他基于网络的架构风格的核心特征是，它强调组件之间要有一个统一的接口。 | 
 
 
 #### 什么是JDBC？解释下驱动(Driver)在JDBC中的角色？Class.forName()方法有什么作用？
