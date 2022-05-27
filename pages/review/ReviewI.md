@@ -278,7 +278,7 @@ Innodb通过Buffer Pool、LogBuffer、Redo Log、Undo Log来实现事务，以�
 
 #### Spring中Bean是线程安全的吗？
 Spring本身并没有针对Bean做线程安全的处理，所以: 
-1. 如果Belan是无状态的，那么Bean则是线程安全的。
+1. 如果Bean是无状态的，那么Bean则是线程安全的。
 2. 如果Bean是有状态的，那么Bean则不是线程安全的。
 
 
@@ -458,11 +458,11 @@ Mysql索引使用的是B+树，因为索引是用来加快查询的，而B+树�
 
 
 #### sychronized和ReentrantLock的区别？
-1. sychronized是一个关键字，ReentrantLock是1一个类。
+1. sychronized是一个关键字，ReentrantLock是一个类。
 2. sychronized会自动的加锁与释放锁，ReentrantLock需要程序员手动加锁与释放锁。
 3. sychronized的底层是JVM层面的锁，ReentrantLock是API层面的锁。
 4. sychronized是非公平锁，ReentrantLock可以选择公平锁或非公平锁。
-5. sychronized锁的是对象，锁信息保存在对象头中，ReentrantLock所的是线程，通过代码中int类型的state标识来标识锁的状态。
+5. sychronized锁的是对象，锁信息保存在对象头中，ReentrantLock锁的是线程，通过代码中int类型的state标识来标识锁的状态。
 6. sychronized底层有一个锁升级的过程。
 
 
