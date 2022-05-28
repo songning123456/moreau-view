@@ -6,12 +6,67 @@
 
 #### 说一下HashMap的put()方法？
 1. 首先put()方法接收到key和value时，会先利用key进行哈希算法得到这个key对应的哈希值。
+```java
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+```
+```java
+static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+```
 2. 再通过这个哈希值与数组长度-1进行与操作得到一个数组下标。
-3. 再判断数组下标位置是不是空着，如果空着，则直接把key和value封装为一个Node对象并存入此数组位置。
+3. 再判断数组下标位置是不是空着。如果空着，则直接把key和value封装为一个Node对象并存入此数组位置。
 4. 如果此下标位置上非空，表示此位置上存在Node对象，那么则判断该Node对象是不是一个红黑树节点，如果是则将key和value封装为一个红黑树节点并添加到红黑树中去，在这个过程中会判断红黑树中是否存在当前key，如果存在则更新value。
 5. 如果此位置上的Node对象是链表节点，则将key和value封装为一个链表Node并插入到链表中去。
 6. 插入到链表中后，会判断链表的节点个数是不是超过了8个，如果超过则把当前位置的链表转化为红黑树。
 7. 插入链表使用的是尾插法，所以需要遍历链表，而在这个过程中也会去判断key是否存在，如果存在则更新value。
+```java
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    Node<K,V>[] tab; Node<K,V> p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) & hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node<K,V> e; K k;
+        if (p.hash == hash &&
+            ((k = p.key) == key || (key != null && key.equals(k))))
+            e = p;
+        else if (p instanceof TreeNode)
+            e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+        else {
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                if (e.hash == hash &&
+                    ((k = e.key) == key || (key != null && key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    if (++size > threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+```
 
 
 #### 说一下ThreadLocal？
@@ -40,7 +95,7 @@ jmap -histo PID
 jstat -gc PID 1000 10 
 ```
 4. 通过各个命令的结果，或者jvisualvm等工具来进行分析。
-5. 首先，初步猜测频繁发送fullgc的原因，如果频繁发生fullgc但是又一直没有出现内存溢出，那么表示fullgc实际上是回收了很多对象了，所以这些对象最好能在younggc过程中就直接回收掉，避免这些对象进入到老年代，对于这种情况，就要考虑这些存活时间不长的对象是不是比较大，导致年轻代放不下，直接进入到了老年代，尝试加大年轻代的大小，如果改完之后，fullgc减少，则证明修改有效。
+5. 首先，初步猜测频繁发生full gc的原因，如果频繁发生full gc但是又一直没有出现内存溢出，那么表示full gc实际上是回收了很多对象了，所以这些对象最好能在young gc过程中就直接回收掉，避免这些对象进入到老年代，对于这种情况，就要考虑这些存活时间不长的对象是不是比较大，导致年轻代放不下，直接进入到了老年代，尝试加大年轻代的大小，如果改完之后，full gc减少，则证明修改有效。
 6. 同时，还可以找到占用CPU最多的线程，定位到具体的方法，优化这个方法的执行，看是否能避免某些对象的创建，从而节省内存。
 
 
@@ -86,7 +141,7 @@ SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
 4. 单例Bean创建完了之后，Spring会发布一个容器启动事件。
 5. Spring启动结束。
 6. 在源码中会更复杂，比如源码中会提供一些模板方法，让子类来实现，比如源码中还涉及到一些BeanFactoryPostProcessor和BeanPostProcessor的注册，Spring的扫描就是通过BenaFactoryPostProcessor来实现的，依赖注入就是通过BeanPostProcessor来实现的。
-7. 在Spring启动过程中还会去处理＠lmport等注解。
+7. 在Spring启动过程中还会去处理＠import等注解。
 
 
 #### 说一下Spring的事务机制？
@@ -107,7 +162,10 @@ SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
 因为Spring事务是基于代理来实现的，所以某个加了＠Transactional的方法只有是被代理对象调用时，那么这个注解才会生效，所以如果是被代理对象来调用这个方法，那么＠Transactional是不会生效的。
 
 
-同时如果某个方法是private的，那么＠Transactional也会失效，因为底层cglib是基于父子类来实现的，子类是不能重载父类的private方法的，所以无法很好的利用代理，也会导致＠Transactianal失效。
+同时如果某个方法是private的，那么＠Transactional也会失效，因为底层cglib是基于父子类来实现的，子类是不能重载父类的private方法的，所以无法很好的利用代理，也会导致＠Transactional失效。
+
+
+👉 [聊聊Spring事务失效的10种场景，太坑人了](https://juejin.cn/post/7023296582078431246)
 
 
 #### Dubbo是如何做系统交互的？
@@ -148,6 +206,9 @@ Dubbo底层是通过RPC来完成服务和服务之间的调用的，Dubbo支持�
 项目中，比如事务、权限控制、方法执行时长日志都是通过AOP技术来实现的，凡是需要对某些方法做统一处理的都可以用AOP来实现，利用AOP可以做到业务无侵入。
 
 
+👉 [Cglib和jdk动态代理的区别](https://www.cnblogs.com/sandaman2019/p/12636727.html)
+
+
 #### Spring中后置处理器的作用？
 Spring中的后置处理器分为BeanFactory后置处理器和Bean后置处理器，它们是Spring底层源码架构设计中非常重要的一种机制，同时开发者也可以利用这两种后置处理器来进行扩展。BeanFactory后置处理器表示针对BeanFactory的处理器，Spring启动过程中，会先创建出BeanFactory实例，然后利用BeanFactory处理器来加工BeanFactory，比如Spring的扫描就是基于BeanFactory后置处理器来实现的，而Bean后置处理器也类似，Spring在创建一个Bean的过程中，首先会实例化得到一个对象，然后再利用Bean后置处理器来对该实例对象进行加工，比如我们常说的依赖注入就是基于一个Bean后置处理器来实现的，通过该Bean后置处理器来给实例对象中加了＠Autowired注解的属性自动赋值，还比如我们常说的AOP，也是利用一个Bean后置处理器来实现的，基于原实例对象，判断是否需要进行AOP，如果需要，那么就基于原实例对象进行动态代理，生成一个代理对象。
 
@@ -155,7 +216,7 @@ Spring中的后置处理器分为BeanFactory后置处理器和Bean后置处理�
 #### 说说常用的SpringBoot注解，及其实现？
 1. ＠SpringBootApplication注解标识了一个SpringBoot工程，它实际上是另外三个注解的组合，这三个注解是: 
     1. `＠SpringBootConfiguration`这个注解实际就是一个＠Configuration，表示启动类也是一个配置类。
-    2. `＠EnableAutoConfiguration`向Spring容器中导入了一个Selector，用来加载ClassPath下SpringFactories中所定义的自动配置类，将这些自动加载为配置Bean。
+    2. `＠EnableAutoConfiguration`向Spring容器中导入了一个Selector，用来加载ClassPath下spring.factories中所定义的自动配置类，将这些自动加载为配置Bean。
     3. `＠ComponentScan`标识扫描路径，因为默认是没有配置实际扫描路径，所以SpringBoot扫描的路径是启动类所在的当前目录。
 2. ＠Bean注解用来定义Bean，类似于XML中的bean标签，Spring在启动时，会对加了＠Bean注解的方法进行解析，将方法的名字做为beanName，并通过执行方法得到bean对象。
 3. ＠Controller、＠Service、＠ResponseBody、＠Autowired都可以说。
@@ -201,10 +262,10 @@ Innodb通过Buffer Pool、LogBuffer、Redo Log、Undo Log来实现事务，以�
 
 1. Innodb在收到一个update语句后，会先根据条件找到数据所在的页，并将该页缓存在Buffer Pool中。
 2. 执行update语句，修改Buffer Pool中的数据，也就是内存中的数据。
-3. 针对update语句生成一个RedoLog对象，并存入LogBuffer中。
-4. 针对update语句生成undolog日志，用于事务回滚。
-5. 如果事务提交，那么则把RedoLog对象进行持久化，后续还有其他机制将Buffer Pool中所修改的数据页持久化到磁盘中。
-6. 如果事务回滚，则利用undolog日志进行回滚。
+3. 针对update语句生成一个redo log对象，并存入LogBuffer中。
+4. 针对update语句生成undo log日志，用于事务回滚。
+5. 如果事务提交，那么则把redo log对象进行持久化，后续还有其他机制将Buffer Pool中所修改的数据页持久化到磁盘中。
+6. 如果事务回滚，则利用undo log日志进行回滚。
 
 
 #### 聊聊你最有成就感的项目？
@@ -347,7 +408,7 @@ JVM在加载一个类时，会调用AppClassLoader的loadClass方法来加载这
 
 
 #### Spring用到了哪些设计模式？
-// todo
+👉 [Spring/SpringBoot系列之Spring中涉及的9种设计模式](https://blog.csdn.net/fei1234456/article/details/106693892)
 
 
 #### 简述CAP理论？
