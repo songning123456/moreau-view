@@ -49,6 +49,9 @@ JVM的内存其实是有限制的，不可能是无限的，昂贵的资源，2�
 👉 [Java类加载机制](https://blog.csdn.net/weixin_40236948/article/details/88072698)
 
 
+👉 [HotSpot虚拟机对象探秘（六）](https://blog.csdn.net/Yunwei_Zheng/article/details/105171632)
+
+
 #### Java代码执行顺序？
 父类静态代码块 -> 子类静态代码块 -> 父类构造代码块 -> 父类构造函数 -> 子类构造代码块 -> 子类构造函数。
 
@@ -89,7 +92,15 @@ JVM的内存其实是有限制的，不可能是无限的，昂贵的资源，2�
 
 
 #### Java对象如何从年轻代转移到老年代？
-👉 [JVM中年轻代里的对象什么情况下进入老年代？](https://www.pianshen.com/article/24491623364/)
+1. 躲过15次GC之后进入老年代；
+2. 动态对象年龄判断；
+3. 大对象直接进入老年代；
+4. Minor GC后的对象太多，无法放入Survivor区；
+5. 老年代空间分配担保规则；
+6. 老年代垃圾回收算法。
+
+
+👉 [JVM中年轻代里的对象什么情况下进入老年代？](https://blog.csdn.net/wangshiwen011/article/details/107473814)
 
 
 #### Java的双亲委派机制？

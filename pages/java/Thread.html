@@ -1327,7 +1327,7 @@ ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPo
 </code></pre>
 <p><span style="color: red">&#x6CE8;&#x610F;: &#x7ED3;&#x679C;&#x4F9D;&#x6B21;&#x8F93;&#x51FA;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x5404;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;</span></p>
 <h4 id="&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5E95;&#x5C42;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1F;">&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5E95;&#x5C42;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1F;</h4>
-<p><a href="../../images/Thread/ThreadPool.jpg" data-lightbox="07f04d10-4604-4784-b329-4bfc2bdd76d8" data-title="&#x7EBF;&#x7A0B;&#x6C60;"><img src="../../images/Thread/ThreadPool.jpg" alt="&#x7EBF;&#x7A0B;&#x6C60;"></a></p>
+<p><a href="../../images/Thread/ThreadPool.jpg" data-lightbox="4a5a118c-d1e8-4a13-be8c-12d2e6bd5c75" data-title="&#x7EBF;&#x7A0B;&#x6C60;"><img src="../../images/Thread/ThreadPool.jpg" alt="&#x7EBF;&#x7A0B;&#x6C60;"></a></p>
 <ol>
 <li>&#x5728;&#x521B;&#x5EFA;&#x4E86;&#x7EBF;&#x7A0B;&#x6C60;&#x540E;&#xFF0C;&#x7B49;&#x5F85;&#x63D0;&#x4EA4;&#x8FC7;&#x6765;&#x7684;&#x4EFB;&#x52A1;&#x8BF7;&#x6C42;&#x3002;</li>
 <li>&#x5728;&#x8C03;&#x7528;execute()&#x65B9;&#x6CD5;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4F1A;&#x505A;&#x5982;&#x4E0B;&#x5224;&#x65AD;&#xFF1A;<pre><code>&#x5982;&#x679C;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x91CF;&#x5C0F;&#x4E8E;corePoolSize=5&#xFF0C;&#x90A3;&#x4E48;&#x9A6C;&#x4E0A;&#x521B;&#x5EFA;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#xFF1B;
@@ -1529,9 +1529,82 @@ ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPo
 
 
 <h4 id="&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x5F53;coresize0&#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;">&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x5F53;coreSize=0&#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</h4>
+<ol>
+<li>&#x5F53;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x4E3A;0&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x975E;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x6267;&#x884C;&#x3002;</li>
+<li>&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x4E0D;&#x4E3A;0&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x5728;&#x6267;&#x884C;&#xFF0C;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x975E;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x4ECE;&#x961F;&#x5217;&#x4E2D;&#x53D6;&#x5BF9;&#x8C61;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x3002;</li>
+<li>&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x6267;&#x884C;&#x7684;&#x662F;&#x961F;&#x5217;&#x7684;take&#xFF0C;&#x975E;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x6267;&#x884C;&#x961F;&#x5217;&#x7684;offer&#x548C;poll&#x3002;</li>
+<li>&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x4E0D;&#x4E3A;0&#x4E14;&#x961F;&#x5217;&#x4E3A;SynchronousQueue&#x65F6;&#xFF0C;&#x5C31;&#x6210;&#x4E86;&#x5355;&#x7EBF;&#x7A0B;&#x8FD0;&#x884C;&#x4E86;&#x3002;</li>
+</ol>
 <p>&#x1F449; <a href="https://blog.csdn.net/u010112098/article/details/115139590" target="_blank">&#x81EA;&#x5B9A;&#x4E49;&#x7EBF;&#x7A0B;&#x6C60;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x8BBE;&#x7F6E;0&#x4EFB;&#x52A1;&#x8FD8;&#x4F1A;&#x6267;&#x884C;&#x5417;&#xFF1F;</a></p>
 <p>&#x1F449; <a href="https://www.chenjianjx.com/&#x6700;&#x8FD1;&#x8E29;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5751;&#xFF1A;-coresize-0-queuecapacity-1/" target="_blank">&#x6700;&#x8FD1;&#x8E29;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5751;: coreSize=0&amp;&amp;queueCapacity&gt;1</a></p>
+<p>&#x1F449; <a href="https://blog.csdn.net/qq_33333654/article/details/122260945" target="_blank">Java&#x7EBF;&#x7A0B;&#x6C60;&#x4E3A;&#x4EC0;&#x4E48;&#x6838;&#x5FC3;&#x7EBF;&#x7A0B;&#x6570;&#x4E3A;0&#x4F9D;&#x7136;&#x80FD;&#x6267;&#x884C;&#xFF1F;</a></p>
 <h4 id="threadlocal&#x4E3A;&#x4EC0;&#x4E48;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x5F31;&#x5F15;&#x7528;&#xFF1F;">ThreadLocal&#x4E3A;&#x4EC0;&#x4E48;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x5F31;&#x5F15;&#x7528;&#xFF1F;</h4>
+<pre><code class="lang-java"><span class="hljs-comment">// get</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">get</span><span class="hljs-params">()</span> </span>{
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>) {
+        ThreadLocalMap.Entry e = map.getEntry(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (e != <span class="hljs-keyword">null</span>) {
+            <span class="hljs-meta">@SuppressWarnings</span>(<span class="hljs-string">&quot;unchecked&quot;</span>)
+            T result = (T)e.value;
+            <span class="hljs-keyword">return</span> result;
+        }
+    }
+    <span class="hljs-keyword">return</span> setInitialValue();
+}
+
+<span class="hljs-function">ThreadLocalMap <span class="hljs-title">getMap</span><span class="hljs-params">(Thread t)</span> </span>{
+    <span class="hljs-keyword">return</span> t.threadLocals;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> T <span class="hljs-title">setInitialValue</span><span class="hljs-params">()</span> </span>{
+    T value = initialValue();
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>)
+        map.set(<span class="hljs-keyword">this</span>, value);
+    <span class="hljs-keyword">else</span>
+        createMap(t, value);
+    <span class="hljs-keyword">return</span> value;
+}
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-comment">// set</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">set</span><span class="hljs-params">(T value)</span> </span>{
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    <span class="hljs-keyword">if</span> (map != <span class="hljs-keyword">null</span>)
+        map.set(<span class="hljs-keyword">this</span>, value);
+    <span class="hljs-keyword">else</span>
+        createMap(t, value);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">createMap</span><span class="hljs-params">(Thread t, T firstValue)</span> </span>{
+    t.threadLocals = <span class="hljs-keyword">new</span> ThreadLocalMap(<span class="hljs-keyword">this</span>, firstValue);
+}
+</code></pre>
+<pre><code class="lang-java"><span class="hljs-comment">// remove</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">()</span> </span>{
+    ThreadLocalMap m = getMap(Thread.currentThread());
+    <span class="hljs-keyword">if</span> (m != <span class="hljs-keyword">null</span>)
+        m.remove(<span class="hljs-keyword">this</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(ThreadLocal&lt;?&gt; key)</span> </span>{
+    Entry[] tab = table;
+    <span class="hljs-keyword">int</span> len = tab.length;
+    <span class="hljs-keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">for</span> (Entry e = tab[i];
+         e != <span class="hljs-keyword">null</span>;
+         e = tab[i = nextIndex(i, len)]) {
+        <span class="hljs-keyword">if</span> (e.get() == key) {
+            e.clear();
+            expungeStaleEntry(i);
+            <span class="hljs-keyword">return</span>;
+        }
+    }
+}
+</code></pre>
 <p>&#x1F449; <a href="https://zhuanlan.zhihu.com/p/304240519" target="_blank">&#x8C08;&#x8C08;ThreadLocal&#x4E3A;&#x4EC0;&#x4E48;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x5F31;&#x5F15;&#x7528;</a></p>
 <p>&#x1F449; <a href="https://www.cnblogs.com/shen-qian/p/12108655.html" target="_blank">ThreadLocal&#x7684;&#x539F;&#x7406;&#x3001;&#x4F5C;&#x7528;&#x3001;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#x539F;&#x56E0;&#x3001;&#x5E94;&#x7528;&#x4E3E;&#x4F8B;</a></p>
 <h4 id="threadlocalmap&#x4E2D;&#x7684;entry&#x662F;&#x4EC0;&#x4E48;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x6570;&#x7EC4;&#x8FD8;&#x662F;&#x94FE;&#x8868;&#xFF1F;">ThreadLocalMap&#x4E2D;&#x7684;Entry&#x662F;&#x4EC0;&#x4E48;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x6570;&#x7EC4;&#x8FD8;&#x662F;&#x94FE;&#x8868;&#xFF1F;</h4>
@@ -1583,7 +1656,7 @@ ScheduledExecutorService newScheduledThreadPool = Executors.newScheduledThreadPo
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"线程","level":"1.2.3","depth":2,"next":{"title":"并发","level":"1.2.4","depth":2,"path":"pages/java/Concurrence.md","ref":"pages/java/Concurrence.md","articles":[]},"previous":{"title":"集合","level":"1.2.2","depth":2,"path":"pages/java/Collection.md","ref":"pages/java/Collection.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","lightbox","page-treeview","-lunr","-search","search-pro","-sharing","sharing-plus","back-to-top-button","code","splitter","chapter-fold","popup","custom-favicon"],"pluginsConfig":{"page-treeview":{"collapsed":false,"copyright":"Copyright &#169; aleen42","minHeaderCount":"2","minHeaderDeep":"2"},"chapter-fold":{},"styles":{"website":"styles/website.css"},"splitter":{},"search-pro":{},"author":"sonin","sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/Title/favicon.ico","lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"title":"面试","custom-favicon":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":true,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":true},"description":"面试宝典","theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"pages/java/Thread.md","mtime":"2021-08-05T13:36:51.482Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-28T07:05:43.086Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"线程","level":"1.2.3","depth":2,"next":{"title":"并发","level":"1.2.4","depth":2,"path":"pages/java/Concurrence.md","ref":"pages/java/Concurrence.md","articles":[]},"previous":{"title":"集合","level":"1.2.2","depth":2,"path":"pages/java/Collection.md","ref":"pages/java/Collection.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hide-element","lightbox","page-treeview","-lunr","-search","search-pro","-sharing","sharing-plus","back-to-top-button","code","splitter","chapter-fold","popup","custom-favicon"],"pluginsConfig":{"page-treeview":{"collapsed":false,"copyright":"Copyright &#169; aleen42","minHeaderCount":"2","minHeaderDeep":"2"},"chapter-fold":{},"styles":{"website":"styles/website.css"},"splitter":{},"search-pro":{},"author":"sonin","sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"popup":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"images/Title/favicon.ico","lightbox":{"jquery":true,"sameUuid":false},"back-to-top-button":{},"title":"面试","custom-favicon":{},"sharing":{"qq":true,"all":["douban","facebook","google","instapaper","linkedin","twitter","weibo","messenger","qq","qzone","viber","whatsapp"],"douban":true,"facebook":false,"weibo":true,"twitter":false,"pocket":false,"google":false,"qzone":true},"description":"面试宝典","theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"pages/java/Thread.md","mtime":"2022-05-29T02:34:25.822Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-29T10:00:10.642Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

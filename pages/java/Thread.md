@@ -586,13 +586,99 @@ for (int i = 0; i < 10; i++) {
 
 
 #### 线程池中当coreSize=0会发生什么？
+
+
+1. 当核心线程数为0的时候，会创建一个非核心线程进行执行。
+2. 核心线程数不为0的时候，如果核心线程数在执行，会有一个非核心线程数从队列中取对象执行线程。
+3. 核心线程数执行的是队列的take，非核心线程数执行队列的offer和poll。
+4. 核心线程数不为0且队列为SynchronousQueue时，就成了单线程运行了。
+
+
 👉 [自定义线程池核心线程数设置0任务还会执行吗？](https://blog.csdn.net/u010112098/article/details/115139590)
 
 
 👉 [最近踩的一个线程池的坑: coreSize=0&&queueCapacity>1](https://www.chenjianjx.com/最近踩的一个线程池的坑：-coresize-0-queuecapacity-1/)
 
 
+👉 [Java线程池为什么核心线程数为0依然能执行？](https://blog.csdn.net/qq_33333654/article/details/122260945)
+
+
 #### ThreadLocal为什么被设计为弱引用？
+```java
+// get
+public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            @SuppressWarnings("unchecked")
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+
+ThreadLocalMap getMap(Thread t) {
+    return t.threadLocals;
+}
+
+private T setInitialValue() {
+    T value = initialValue();
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+    return value;
+}
+```
+
+
+```java
+// set
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+
+void createMap(Thread t, T firstValue) {
+    t.threadLocals = new ThreadLocalMap(this, firstValue);
+}
+```
+
+
+```java
+// remove
+public void remove() {
+    ThreadLocalMap m = getMap(Thread.currentThread());
+    if (m != null)
+        m.remove(this);
+}
+
+private void remove(ThreadLocal<?> key) {
+    Entry[] tab = table;
+    int len = tab.length;
+    int i = key.threadLocalHashCode & (len-1);
+    for (Entry e = tab[i];
+         e != null;
+         e = tab[i = nextIndex(i, len)]) {
+        if (e.get() == key) {
+            e.clear();
+            expungeStaleEntry(i);
+            return;
+        }
+    }
+}
+```
+
+
 👉 [谈谈ThreadLocal为什么被设计为弱引用](https://zhuanlan.zhihu.com/p/304240519)
 
 

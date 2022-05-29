@@ -30,7 +30,107 @@ Iterator接口提供了很多对集合元素进行迭代的方法。每一个集
 👉 [ArrayList中add()方法的执行过程](https://blog.csdn.net/WINT0123/article/details/108154573)
 
 
-#### Arraylist是如何实现remove操作的？
+1. 调用`add(E e)`方法。
+2. 获取当前ArrayList实例的元素个数`size`。
+3. 计算新元素追加完成后的实例应该具备的最小容量`minCapacity=size+1`。
+4. 获取当前ArrayList实例`elementData`:
+    1. 如果该实例为new时创建的默认对象，获取一个默认的初始容量`DEFAULT_CAPACITY=10`；
+    2. 如果该实例非新构建的对象，则获取该实例追加元素后应该具备的最小容量`minCapacity`。
+5. `元素追加`或进行`扩容+数据迁移`操作:
+    1. 追加元素后应该具备的`最小容量minCapacity<当前集合容量elementData.length`执行数据追加操作，直接跳到第8步；
+    2. 集合刚被创建时`minCapacity>elementData.length`执行`扩容+数据迁移`操作；
+    3. 追加元素时如果`minCapacity>elementData.length`执行`扩容+数据迁移`操作。
+6. 执行扩容操作，返回扩容后容量。先将容量扩容到当前容量的1.5倍，判断是否够用`minCapacity<newCapacity`。扩容后容量未超出MAX_ARRAY_SIZE，返回扩容后容量newCapacity；扩容后容量超出MAX_ARRAY_SIZE，返回Integer.MAX_VALUE。
+    1. 不够用将容量扩容为minCapacity；
+    2. 判断扩容后的容量是否超出了数组限定的最大容量`MAX_ARRAY_SIZE=Integer.MAX_VALUE-8`。
+    ```
+    为什么数组的最大值是Integer.MAX_VALUE-8？
+    
+    数组作为一个对象，需要一定的内存存储对象头信息，对象头信息最大占用内存不可超过8字节。如果数组长度过大，可能出现的两种错误。
+    OutOfMemoryError: Java heap space堆区内存不足（这个可以通过设置JVM参数-Xmx来指定）。
+    OutOfMemoryError: Requested array size exceeds VM limit超过了JVM虚拟机的最大限制。
+    ```
+7. 执行`Arrays.copyOf(elementData, newCapacity)`操作，复制当前实例对象到新的数组。
+8. 执行新元素的追加操作`elementData[size++]=e`，size在方法内自增。
+
+
+```java
+/**
+ * 将指定的元素追加到此列表的末尾。
+ */
+public boolean add(E e) {
+	//扩容运算，原数据迁移
+	ensureCapacityInternal(size + 1);
+	//追加新元素，size自增
+	elementData[size++] = e;
+	return true;
+}
+
+..........此处省略无关代码..........
+   
+/**
+ * 得到一个初始容量或新元素添加完成后所需的最小容量
+ * @param elementData 当前实例对象
+ * @param minCapacity 所需的最小容量 = size + 1
+ */
+private static int calculateCapacity(Object[] elementData, int minCapacity) {
+	// DEFAULTCAPACITY_EMPTY_ELEMENTDATA是使用空参构造的默认空数组
+	// elementData如果与其相等，则当前实例创建后未进行过任何操作，此时返回默认容量10
+	if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+		return Math.max(DEFAULT_CAPACITY, minCapacity);
+	}
+	return minCapacity;
+}
+
+private void ensureCapacityInternal(int minCapacity) {
+	ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));
+}
+
+private void ensureExplicitCapacity(int minCapacity) {
+	modCount++;
+	if (minCapacity - elementData.length > 0)
+		// 容量溢出，进行扩容运算和原数据迁移
+		grow(minCapacity);
+}
+
+/**
+ * 要分配的数组的最大大小。
+ * 一些VM在数组中保留一些标题字
+ * 尝试分配更大的数组可能会导致OutOfMemoryError：请求的数组大小超出了VM限制
+ */
+private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+
+/**
+ * 增加容量以确保它至少可以容纳最小容量参数指定的元素数。
+ *
+ * @param minCapacity 所需的最小容量
+ */
+private void grow(int minCapacity) {
+	// 先将当前实例的数组容量扩容到1.5倍
+	int oldCapacity = elementData.length;				// 当前容量
+	int newCapacity = oldCapacity + (oldCapacity >> 1); // 位移运算 >> 1 相当于除以2
+	
+	// 扩容后不够用，将数组容量直接扩容到实际长度
+	if (newCapacity - minCapacity < 0)
+		newCapacity = minCapacity;
+	
+	//还是不够用，扩容Integer.MAX_VALUE=2147483647
+	if (newCapacity - MAX_ARRAY_SIZE > 0)
+		newCapacity = hugeCapacity(minCapacity);
+
+	//扩容完成，复制当前实例数据到新的数组
+	elementData = Arrays.copyOf(elementData, newCapacity);
+}
+
+private static int hugeCapacity(int minCapacity) {
+	if (minCapacity < 0) // overflow
+		throw new OutOfMemoryError();
+	return (minCapacity > MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
+}
+```
+   
+    
+#### ArrayList是如何实现remove操作的？
 ```java
 public E remove(int index) {
     // 先检查下标索引是是否越界
@@ -75,6 +175,72 @@ public E remove(int index) {
 5. 如果节点已经存在就替换旧值。
 6. 如果桶满了(容量 * 加载因子)，就需要resize。
 
+```java
+// put操作
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+
+static final int hash(Object key) {
+    int h;
+    // 1. 求hash值
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
+    Node<K,V>[] tab; Node<K,V> p; int n, i;
+    if ((tab = table) == null || (n = tab.length) == 0) {
+        n = (tab = resize()).length;
+    }
+    if ((p = tab[i = (n - 1) & hash]) == null) {
+        // 2. 如果没有碰撞，直接放入桶中
+        tab[i] = newNode(hash, key, value, null);
+    } 
+    else {
+        Node<K,V> e; K k;
+        // 3. 如果碰撞了，以链表的方式链接到后面
+        if (p.hash == hash &&  ((k = p.key) == key || (key != null && key.equals(k)))) {
+            e = p;
+        }
+        else if (p instanceof TreeNode) {
+            e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+        }
+        else {
+            // 4. 如果链表长度超过阀值(TREEIFY_THRESHOLD == 8)，就把链表转成红黑树
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    // -1 for 1st
+                    if (binCount >= TREEIFY_THRESHOLD - 1) {
+                        treeifyBin(tab, hash);
+                    }
+                    break;
+                }
+                if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k)))) {
+                    break;
+                }
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null) {
+                // 5. 如果节点已经存在就替换旧值
+                e.value = value;
+            } 
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    // 6. 如果桶满了(容量 * 加载因子)，就需要resize
+    if (++size > threshold) {
+        resize();
+    }
+    afterNodeInsertion(evict);
+    return null;
+}
+```
 
 
 **红黑树的5个特性**
