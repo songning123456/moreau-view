@@ -1,5 +1,5 @@
-#### 使用Spring的好处?
-1. 降低了组件之间的耦合性 ，实现了软件各层之间的解耦。
+#### 使用Spring的好处？
+1. 降低了组件之间的耦合性，实现了软件各层之间的解耦。
 2. 可以使用容易提供的众多服务，如事务管理，消息服务等。
 3. 容器提供单例模式支持。
 4. 容器提供了AOP技术，利用它很容易实现如权限拦截，运行期监控等功能。
@@ -37,7 +37,7 @@
 👉 [Spring中bean的生命周期详解](https://blog.csdn.net/knknknkn8023/article/details/107130806)
 
 
-#### Spring中bean实例化有哪几种方式(依赖注入)?
+#### Spring中bean实例化有哪几种方式(依赖注入)？
 **Set方法**
 ```java
 public class SpringAction {  
@@ -135,7 +135,21 @@ public class DaoFactory {
 线程安全这个问题，要从单例与原型Bean分别进行说明。对于原型Bean，每次创建一个新对象，也就是线程之间并不存在Bean共享，自然是不会有线程安全的问题。对于单例Bean，所有线程都共享一个单例实例Bean，因此是存在资源的竞争。如果单例Bean，是一个无状态Bean，也就是线程中的操作不会对Bean的成员执行查询以外的操作，那么这个单例Bean是线程安全的。比如SpringMVC的Controller、Service、Dao等，这些Bean大多是无状态的，只关注于方法本身。对于有状态的Bean，Spring官方提供的Bean，一般提供了通过ThreadLocal去解决线程安全的方法，比如RequestContextHolder、TransactionSynchronizationManager、LocaleContextHolder等。
 
 
-#### Spring IOC原理?
+#### Spring如何解决循环依赖的？
+
+
+1. 什么是循环依赖
+2. 怎么检测循环依赖
+3. 循环依赖的N种场景
+3. Spring怎么解决循环依赖
+4. Spring对于循环依赖无法解决的场景
+5. Spring解决循环依赖的方式我们能够学到什么
+
+
+👉 [spring如何解决循环依赖](https://blog.csdn.net/wujun2412/article/details/123392678)
+
+
+#### Spring IOC原理？
 IOC(Inversion Of Control)是指容器控制程序对象之间的关系，而不是传统实现中，由程序代码直接操控。控制权由应用代码中转到了外部容器，控制权的转移是所谓反转。对于Spring而言，就是由Spring来控制对象的生命周期和对象之间的关系；IOC还有另外一个名字——“依赖注入(Dependency Injection)”。从名字上理解，所谓依赖注入，即组件之间的依赖关系由容器在运行期决定，即由容器动态地将某种依赖关系注入到组件之中。
 
 
@@ -157,7 +171,7 @@ IOC(Inversion Of Control)是指容器控制程序对象之间的关系，而不�
 IOC的优点：降低了组件之间的耦合，降低了业务对象之间替换的复杂性，使之能够灵活的管理对象。
 
 
-#### Spring AOP原理?
+#### Spring AOP原理？
 AOP面向方面编程基于IOC，是对OOP的有益补充。
 
 
@@ -351,7 +365,62 @@ ResultSet rst = pst.executeQuery();
 👉 [详解SpringBoot配置连接池](https://blog.csdn.net/qq_38714585/article/details/84069825)
 
 
-#### springboot哪个注解实现返回json格式的数据？
-```
+#### SpringBoot实现返回json格式的数据？
+1. @ResponseBody
+
+
+需要在@RequestMapping中，添加`produces="application/json;charset=UTF-8"`，设定返回值的类型。
+
+
+```java
 @ResponseBody
+@RequestMapping(value = "/body/data", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+public String writeByBody(@RequestBody JSONObject jsonParam) {
+    // 直接将json信息打印出来
+    System.out.println(jsonParam.toJSONString());
+    // 将获取的json数据封装一层，然后在给返回
+    JSONObject result = new JSONObject();
+    result.put("msg", "ok");
+    result.put("method", "@ResponseBody");
+    result.put("data", jsonParam);
+    return result.toJSONString();
+}
+```
+
+
+2. HttpServletResponse
+
+
+通过HttpServletResponse获取到输出流后，写出数据到客户端，也就是网页了。
+
+
+```java
+@RequestMapping(value = "/resp/data", method = RequestMethod.POST)
+public void writeByResp(@RequestBody JSONObject jsonParam,HttpServletResponse resp) {
+    // 将获取的json数据封装一层，然后在给返回
+    JSONObject result = new JSONObject();
+    result.put("msg", "ok");
+    result.put("method", "HttpServletResponse");
+    result.put("data", jsonParam);
+    //写json数据到客户端
+    this.writeJson(resp, result);
+}
+
+public void writeJson(HttpServletResponse resp ,JSONObject json ){
+    PrintWriter out = null;
+    try {
+        //设定类容为json的格式
+        resp.setContentType("application/json;charset=UTF-8");
+        out = resp.getWriter();
+        //写到客户端
+        out.write(json.toJSONString());
+        out.flush();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally{
+        if(out != null){
+            out.close();
+        }
+    }
+}
 ```
