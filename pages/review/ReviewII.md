@@ -4,7 +4,7 @@
 
 union和union all
 
-Springboot连接池
+SpringBoot连接池
 
 跨域
 
@@ -28,11 +28,11 @@ Spring哪个注解实现动态添加配置信息的是否添加到Spring容器�
 
 Spring哪种注解实现返回json格式的数据
 
-Mybatis如何实现全局的limit offset，Mybaits拦截器
+Mybatis如何实现全局的limit offset，Mybatis拦截器
 
 v-has
 
-nginx实现图片的控制
+Nginx实现图片的控制
 
 explain
 
@@ -52,7 +52,7 @@ mybatis接口为啥就能执行sql语句
 
 查找所有数量大于1的结果
 
-Arraylist是如何实现remove操作的
+ArrayList是如何实现remove操作的
 
 如何保证缓存与数据库一致性的
 
@@ -60,7 +60,7 @@ Arraylist是如何实现remove操作的
 
 双亲委派机制
 
-哪些对象可以作为gcroot
+哪些对象可以作为gc root
 
 G1收集器何时回收垃圾
 
@@ -74,7 +74,7 @@ Redis过期策略
 
 LinkedHashMap TreeMap
 
-coresize=0会出现什么情况
+core size=0会出现什么情况
 
 边车是如何保证交易发到后面的边车的
 

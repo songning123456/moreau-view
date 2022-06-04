@@ -366,7 +366,7 @@ ResultSet rst = pst.executeQuery();
 
 
 #### SpringBoot实现返回json格式的数据？
-1. @ResponseBody
+* @ResponseBody
 
 
 需要在@RequestMapping中，添加`produces="application/json;charset=UTF-8"`，设定返回值的类型。
@@ -388,7 +388,7 @@ public String writeByBody(@RequestBody JSONObject jsonParam) {
 ```
 
 
-2. HttpServletResponse
+* HttpServletResponse
 
 
 通过HttpServletResponse获取到输出流后，写出数据到客户端，也就是网页了。
