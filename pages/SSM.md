@@ -37,6 +37,20 @@
 👉 [Spring中bean的生命周期详解](https://blog.csdn.net/knknknkn8023/article/details/107130806)
 
 
+1. 实例化，创建一个Bean对象。
+2. 填充属性，为属性赋值。
+3. 初始化：
+    1. 如果实现了xxxAware接口，通过不同类型的Aware接口拿到Spring容器的资源。
+    2. 如果实现了BeanPostProcessor接口，则会回调该接口的postProcessBeforeInitialzation和postProcessAfterInitialization方法。
+    3. 如果配置了init-method方法，则会执行init-method配置的方法。
+4. 销毁: 
+    1. 容器关闭后，如果Bean实现了DisposableBean接口，则会回调该接口的destroy方法。
+    2. 如果配置了destroy-method方法，则会执行destroy-method配置的方法。
+    
+    
+![](/images/SSM/SpringLifeCycle.png)
+
+
 #### Spring中bean实例化有哪几种方式(依赖注入)？
 **Set方法**
 ```java
@@ -136,18 +150,37 @@ public class DaoFactory {
 
 
 #### Spring如何解决循环依赖的？
-
-
-1. 什么是循环依赖
-2. 怎么检测循环依赖
-3. 循环依赖的N种场景
-3. Spring怎么解决循环依赖
-4. Spring对于循环依赖无法解决的场景
-5. Spring解决循环依赖的方式我们能够学到什么
-
-
 👉 [spring如何解决循环依赖](https://blog.csdn.net/wujun2412/article/details/123392678)
 
+
+首先，Spring 解决循环依赖有两个前提条件: 
+1. 不全是构造器方式的循环依赖。
+2. 必须是单例。
+
+
+基于上面的问题，我们知道Bean的生命周期，本质上解决循环依赖的问题就是三级缓存，通过三级缓存提前拿到未初始化的对象。
+
+
+* 第一级缓存`Map<String, Object> singletonObjects`: 用来保存实例化、初始化都完成的对象。
+* 第二级缓存`Map<String, Object> earlySingletonObjects`: 用来保存实例化完成，但是未初始化完成的对象。
+* 第三级缓存`Map<String, ObjectFactory<?>> singletonFactories`: 用来保存一个对象工厂，提供一个匿名内部类，用于创建二级缓存中的对象。
+
+
+**场景: A、B互相依赖？**
+
+
+1. 创建对象A，实例化的时候把A对象工厂放入三级缓存。
+2. A注入属性时，发现依赖B，转而去实例化B。
+3. 同样创建对象B，注入属性时发现依赖A，依次从一级到三级缓存查询A，从三级缓存通过对象工厂。拿到A，把A放入二级缓存，同时删除三级缓存中的A，此时，B已经实例化并且初始化完成，把B放入一级缓存。
+4. 接着继续创建A，顺利从一级缓存拿到实例化且初始化完成的B对象，A对象创建也完成，删除二级缓存中的A，同时把A放入一级缓存。
+5. 最后，一级缓存中保存着实例化、初始化都完成的A、B对象。
+
+
+**为什么要三级缓存？二级不行吗？**
+
+
+不可以，主要是为了生成代理对象。因为三级缓存中放的是生成具体对象的匿名内部类，他可以生成代理对象，也可以是普通的实例对象。使用三级缓存主要是为了保证不管什么时候使用的都是一个对象。假设只有二级缓存的情况，往二级缓存中放的显示一个普通的Bean对象，BeanPostProcessor去生成代理对象之后，覆盖掉二级缓存中的普通Bean对象，那么多线程环境下可能取到的对象就不一致了。
+ 
 
 #### Spring IOC原理？
 IOC(Inversion Of Control)是指容器控制程序对象之间的关系，而不是传统实现中，由程序代码直接操控。控制权由应用代码中转到了外部容器，控制权的转移是所谓反转。对于Spring而言，就是由Spring来控制对象的生命周期和对象之间的关系；IOC还有另外一个名字——“依赖注入(Dependency Injection)”。从名字上理解，所谓依赖注入，即组件之间的依赖关系由容器在运行期决定，即由容器动态地将某种依赖关系注入到组件之中。
