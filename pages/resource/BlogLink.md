@@ -30,5 +30,8 @@
 👉 [tcpdump抓包学习Nginx(反向代理)，学完不怵nginx了，还总想跃跃欲试！(Nginx使用、原理完整版手册)](https://juejin.cn/post/7070269868553011230)
 
 
+👉 [X-Forwarded-For的一些理解](https://blog.csdn.net/zyhmz/article/details/82505344)
+
+
 #### GIT
 // todo
