@@ -1,3 +1,6 @@
+### 虚拟机
+
+
 #### 简单讲一下java的跨平台原理？
 ![Java](/images/JVM/PlateForm.jpg)
 

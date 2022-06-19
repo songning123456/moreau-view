@@ -1,3 +1,6 @@
+### 阶乘
+
+
 #### 阶乘后的零
 ![trailingZeroes](/images/Arithmetic/trailingZeroes.PNG)
 

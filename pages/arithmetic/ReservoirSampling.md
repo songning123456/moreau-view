@@ -1,3 +1,6 @@
+### 水塘抽样
+
+
 #### 链表随机节点
 ![linkRandomNode](/images/Arithmetic/linkRandomNode.PNG)
 

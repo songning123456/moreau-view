@@ -1,3 +1,6 @@
+### Redis
+
+
 #### 什么是Redis？简述它的优缺点？
 Redis的全称是Remote Dictionary Server，本质上是一个Key-Value类型的内存数据库，很像memcached，整个数据库统统加载在内存当中进行操作，定期通过异步操作把数据库数据flush到硬盘上进行保存。
 

@@ -1,3 +1,6 @@
+### 题卷I
+
+
 #### 说一下ArrayList和LinkedList区别？
 1. 首先，他们的底层数据结构不同，ArrayList底层是基于数组实现的，LinkedList底层是基于链表实现的。
 2. 由于底层数据结构不同，他们所适用的场景也不同，ArrayList更适合随机查找，LinkedList更适合删除和添加，查询、添加、删除的时间复杂度不同。
