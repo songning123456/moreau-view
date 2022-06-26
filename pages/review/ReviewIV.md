@@ -511,7 +511,42 @@ public static boolean isLinkCycle(Node head) {
 
 
 #### ThreadLocal讲讲？
-// todo
+![](/images/ReviewIV/ThreadLocal.png)
+
+
+ThreadLocal是作为当前线程中属性ThreadLocalMap集合中的某一个Entry的key值Entry(ThreadLocal，value)，虽然不同的线程之间ThreadLocal这个key值是一样，但是不同的线程所拥有的ThreadLocalMap是独一无二的，也就是不同的线程间同一个ThreadLocal(key)对应存储的值(value)不一样，从而到达了线程间变量隔离的目的，但是在同一个线程中这个value变量地址是一样的。
+
+
+**ThreadLocal如何解决Hash冲突**
+
+
+与HashMap不同，ThreadLocalMap结构非常简单，没有next引用，也就是说ThreadLocalMap中解决Hash冲突的方式并非链表的方式，而是采用线性探测的方式。所谓线性探测，就是根据初始key的hashcode值确定元素在table数组中的位置，如果发现这个位置上已经被其他的key值占用，则利用固定的算法寻找一定步长的下个位置，依次判断，直至找到能够存放的位置。
+
+
+```java
+/
+ * Increment i modulo len.
+ */
+private static int nextIndex(int i, int len) {
+    return ((i + 1 < len) ? i + 1 : 0);
+}
+
+/
+ * Decrement i modulo len.
+ */
+private static int prevIndex(int i, int len) {
+    return ((i - 1 >= 0) ? i - 1 : len - 1);
+}
+```
+
+
+**为什么ThreadLocalMap的key是弱引用**
+
+
+key使用强引用这样会导致一个问题，引用的ThreadLocal的对象被回收了，但是ThreadLocalMap还持有ThreadLocal的强引用，如果没有手动删除，ThreadLocal不会被回收，则会导致内存泄漏。
+
+
+key使用弱引用，引用的ThreadLocal的对象被回收了，由于ThreadLocalMap持有ThreadLocal的弱引用，即使没有手动删除，ThreadLocal也会被回收。value在下一次ThreadLocalMap调用set()、get()、remove()的时候会被清除。
 
 
 #### 一次接口调用，在日志文件里打印“kuaishou ” + 耗时，比如“kuaishou 20ms”......有10w+条，用Linux的命令怎么查出来耗时最短的十条？耗时最长的呢？
@@ -635,7 +670,7 @@ jps [options] [hostid]
 👉 [Spring事务底层的实现流程](https://blog.csdn.net/qq_35436158/article/details/123400990)
 
 
-### 菜⻦&嘀嘀
+### 菜鸟&嘀嘀
 
 
 #### JVM内存溢出排查？

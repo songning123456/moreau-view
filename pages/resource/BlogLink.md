@@ -21,6 +21,9 @@
 👉 [EMQ X简介与MQTT集成Java开发](https://blog.csdn.net/weixin_43847022/article/details/111885555)
 
 
+👉 [常见OOM原因及解决方案](http://pdf.sonin.cn?file=常见OOM原因及解决方案.pdf)
+
+
 #### WINDOW
 // todo
 
