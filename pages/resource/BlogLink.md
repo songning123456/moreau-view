@@ -24,6 +24,9 @@
 👉 [常见OOM原因及解决方案](http://pdf.sonin.cn?file=常见OOM原因及解决方案.pdf)
 
 
+👉 [什么是零拷贝](https://blog.csdn.net/a745233700/article/details/122660332)
+
+
 #### WINDOW
 // todo
 
