@@ -165,15 +165,15 @@ Netty是一个基于JAVA NIO类库的异步通信框架，它的架构特点是�
 
 | 故障类型 | 出现场景 | 原因分析 | 解决方案 |
 | :----- | :----- | :----- | :----- |
-|Java heap space|当堆内存(Heap Space)没有⾜够空间存放新创建的对象时，就会抛出java.lang.OutOfMemoryError:Java heap space错误(根据实际⽣产经验，可以对程序⽇志中的OutOfMemoryError配置关键字告警，⼀经发现，立即处理)。|1. 请求创建一个超大对象，通常是⼀个大数组。<br>2. 超出预期的访问量/数据量，通常是上游系统请求流量飙升，常见于各类促销/秒杀活动，可以结合业务流量指标排查是否有尖状峰值。<br>3. 过度使⽤终结器(Finalizer)，该对象没有立即被GC。<br>4. 内存泄漏(Memory Leak)，大量对象引用没有释放，JVM无法对其自动回收，常见于使用了File等资源没有回收。|1. 通过-Xmx参数调⾼JVM堆内存空间。<br>2. 如果是超⼤对象，可以检查其合理性，⽐如是否⼀次性查询了数据库全部结果⽽没有做结果数限制。<br>3. 如果是业务峰值压⼒，可以考虑添加机器资源或者做限流降级。<br>4. 如果是内存泄漏，需要找到持有的对象，修改代码设计，⽐如关闭没有释放的连接。|
-|GC overhead limit exceeded|当Java进程花费98%以上的时间执⾏GC，但只恢复了不到2%的内存，且该动作连续重复了5次，就会抛出 java.lang.OutOfMemoryError:GC overhead limit exceeded错误。简单地说就是应⽤程序已经基本耗尽了所有可⽤内存，GC也⽆法回收。|同Java heap space|同Java heap space|
-|Permgen space|该错误表⽰永久代(Permanent Generation)已⽤满，通常是因为加载的class数⽬太多或体积太⼤。|永久代存储对象主要包括以下⼏类: <br>1. 加载/缓存到内存中的Class定义，包括类的名称、字段、⽅法和字节码；<br>2. 常量池；<br>3. 对象数组/类型数组所关联的class；<br>4. JIT编译器优化后的class信息。<br>PermGen的使⽤量与加载到内存的Class的数量/⼤⼩正相关。|1. 程序启动报错，修改-XX:MaxPermSize启动参数，调⼤永久代空间。<br>2. 应⽤重新部署时报错，很可能是没有应⽤没有重启，导致加载了多份class信息，只需重启JVM即可解决。<br>3. 运⾏时报错，应⽤程序可能会动态创建⼤量class，⽽这些class的⽣命周期很短暂，但是JVM默认不会卸载class，可以设置-XX:+CMSClassUnloadingEnabled和-XX:+UseConcMarkSweepGC这两个参数允许JVM卸载class。|
-|Metaspace|JDK1.8使⽤Metaspace替换了永久代(Permanent Generation)，该错误表⽰Metaspace已被⽤满，通常是因为加载的class数⽬太多或体积太⼤。|同Permgen space|同Permgen space。注意的是调整Metaspace空间⼤⼩的启动参数为-XX:MaxMetaspaceSize。|
-|Unable to create new native thread|每个Java线程都需要占⽤⼀定的内存空间，当JVM向底层操作系统请求创建⼀个新的native线程时，如果没有⾜够的资源分配就会报此类错误。|JVM向OS请求创建native线程失败，就会抛出Unable to create new native thread，常见的原因包括以下⼏类:<br>1. 线程数超过操作系统最⼤线程数ulimit限制；<br>2. 线程数超过kernel.pid_max(只能重启)；<br>3. native内存不⾜。|1. JVM内部的应⽤程序请求创建⼀个新的Java线程；<br>2. JVM native⽅法代理了该次请求，并向操作系统请求创建⼀个native线程；<br>3. 操作系统尝试创建⼀个新的native线程，并为其分配内存；<br>4. 如果操作系统的虚拟内存已耗尽或是受到32位进程的地址空间限制，操作系统就会拒绝本次native内存分配；<br>5. JVM将抛出java.lang.OutOfMemoryError: Unable to create new native thread错误。|
-|Out of swap space|该错误表⽰所有可⽤的虚拟内存已被耗尽。虚拟内存(Virtual Memory)由物理内存(Physical Memory)和交换空间(Swap Space)两部分组成。当运⾏时程序请求的虚拟内存溢出时就会报Out of swap space错误。|1. 地址空间不⾜；<br>2. 物理内存已耗光；<br>3. 应⽤程序的本地内存泄漏(native leak)，例如不断申请本地内存，却不释放。<br>4. 执⾏jmap-histo:live<pid>命令，强制执⾏Full GC；如果⼏次执⾏后内存明显下降，则基本确认为Direct ByteBuffer问题。|1. 升级地址空间为64bit。<br>2. 使⽤Arthas检查是否为Inflater/Deflater解压缩问题，如果是则显式调⽤end⽅法。<br>3. Direct ByteBuffer 问题可以通过启动参数-XX:MaxDirectMemorySize调低阈值。<br>4. 升级服务器配置/隔离部署，避免争⽤。|
-|Kill process or sacrifice child|有⼀种内核作业(Kernel Job)名为Out of Memory Killer，它会在可⽤内存极低的情况下杀死(kill)某些进程。OOM Killer会对所有进程进⾏打分，然后将评分较低的进程“杀死”，具体的评分规则可以参考Surviving the Linux OOM Killer。不同于其他的 OOM 错误，Kill processor sacrifice child错误不是由JVM层⾯触发的，⽽是由操作系统层⾯触发的。|默认情况下，Linux内核允许进程申请的内存总量⼤于系统可⽤内存，通过这种“错峰复⽤”的⽅式可以更有效的利⽤系统资源。然⽽这种⽅式也会⽆可避免地带来⼀定的“超卖”风险。例如某些进程持续占⽤系统内存，然后导致其他进程没有可⽤内存。此时系统将⾃动激活OOM Killer，寻找评分低的进程，并将其“杀死”，释放内存资源。|1. 升级服务器配置/隔离部署，避免争⽤。<br>2. OOM Killer 调优。|
-|Requested array size exceeds VM limit|JVM限制了数组的最⼤长度，该错误表⽰程序请求创建的数组超过最⼤长度限制。JVM在为数组分配内存前，会检查要分配的数据结构在系统中是否可寻址，通常为Integer.MAX_VALUE-2。此类问题⽐较罕见，通常需要检查代码，确认业务是否需要创建如此⼤的数组，是否可以拆分为多个块，分批执⾏。|----|----|
-|Direct buffer memory|Java允许应⽤程序通过Direct ByteBuffer直接访问堆外内存，许多⾼性能程序通过Direct ByteBuffer结合内存映射⽂件(MemoryMapped File)实现⾼速IO。|Direct ByteBuffer的默认⼤⼩为64MB，⼀旦使⽤超出限制就会抛出Direct buffer memory错误。|1. Java只能通过ByteBuffer.allocateDirect⽅法使⽤Direct ByteBuffer，因此可以通过Arthas等在线诊断⼯具拦截该⽅法进⾏排查。<br>2. 检查是否直接或间接使⽤了NIO，如netty，jetty等。<br>3. 通过启动参数-XX:MaxDirectMemorySize调整Direct ByteBuffer的上限值。<br>4. 检查JVM参数是否有-XX:+DisableExplicitGC选项，如果有就去掉，因为该参数会使System.gc()失效。<br>5. 检查堆外内存使⽤代码，确认是否存在内存泄漏；或者通过反射调⽤sun.misc.Cleaner的clean()⽅法来主动释放被Direct ByteBuffer持有的内存空间。<br>6. 内存容量确实不⾜，升级配置。|
+|Java heap space|当堆内存(Heap Space)没有足够空间存放新创建的对象时，就会抛出java.lang.OutOfMemoryError:Java heap space错误(根据实际生产经验，可以对程序日志中的OutOfMemoryError配置关键字告警，一经发现，立即处理)。|1. 请求创建一个超大对象，通常是一个大数组。<br>2. 超出预期的访问量/数据量，通常是上游系统请求流量飙升，常见于各类促销/秒杀活动，可以结合业务流量指标排查是否有尖状峰值。<br>3. 过度使用终结器(Finalizer)，该对象没有立即被GC。<br>4. 内存泄漏(Memory Leak)，大量对象引用没有释放，JVM无法对其自动回收，常见于使用了File等资源没有回收。|1. 通过-Xmx参数调高JVM堆内存空间。<br>2. 如果是超大对象，可以检查其合理性，比如是否一次性查询了数据库全部结果而没有做结果数限制。<br>3. 如果是业务峰值压力，可以考虑添加机器资源或者做限流降级。<br>4. 如果是内存泄漏，需要找到持有的对象，修改代码设计，比如关闭没有释放的连接。|
+|GC overhead limit exceeded|当Java进程花费98%以上的时间执行GC，但只恢复了不到2%的内存，且该动作连续重复了5次，就会抛出java.lang.OutOfMemoryError:GC overhead limit exceeded错误。简单地说就是应用程序已经基本耗尽了所有可用内存，GC也无法回收。|同Java heap space|同Java heap space|
+|Permgen space|该错误表示永久代(Permanent Generation)已用满，通常是因为加载的class数目太多或体积太大。|永久代存储对象主要包括以下几类: <br>1. 加载/缓存到内存中的Class定义，包括类的名称、字段、方法和字节码；<br>2. 常量池；<br>3. 对象数组/类型数组所关联的class；<br>4. JIT编译器优化后的class信息。<br>PermGen的使用量与加载到内存的Class的数量/大小正相关。|1. 程序启动报错，修改-XX:MaxPermSize启动参数，调大永久代空间。<br>2. 应用重新部署时报错，很可能是没有应用没有重启，导致加载了多份class信息，只需重启JVM即可解决。<br>3. 运行时报错，应用程序可能会动态创建大量class，而这些class的生命周期很短暂，但是JVM默认不会卸载class，可以设置-XX:+CMSClassUnloadingEnabled和-XX:+UseConcMarkSweepGC这两个参数允许JVM卸载class。|
+|Metaspace|JDK1.8使用Metaspace替换了永久代(Permanent Generation)，该错误表示Metaspace已被用满，通常是因为加载的class数目太多或体积太大。|同Permgen space|同Permgen space。注意的是调整Metaspace空间大小的启动参数为-XX:MaxMetaspaceSize。|
+|Unable to create new native thread|每个Java线程都需要占用一定的内存空间，当JVM向底层操作系统请求创建一个新的native线程时，如果没有足够的资源分配就会报此类错误。|JVM向OS请求创建native线程失败，就会抛出Unable to create new native thread，常见的原因包括以下几类:<br>1. 线程数超过操作系统最大线程数ulimit限制；<br>2. 线程数超过kernel.pid_max(只能重启)；<br>3. native内存不足。|1. JVM内部的应用程序请求创建⼀个新的Java线程；<br>2. JVM native方法代理了该次请求，并向操作系统请求创建一个native线程；<br>3. 操作系统尝试创建一个新的native线程，并为其分配内存；<br>4. 如果操作系统的虚拟内存已耗尽或是受到32位进程的地址空间限制，操作系统就会拒绝本次native内存分配；<br>5. JVM将抛出java.lang.OutOfMemoryError: Unable to create new native thread错误。|
+|Out of swap space|该错误表示所有可用的虚拟内存已被耗尽。虚拟内存(Virtual Memory)由物理内存(Physical Memory)和交换空间(Swap Space)两部分组成。当运⾏时程序请求的虚拟内存溢出时就会报Out of swap space错误。|1. 地址空间不⾜；<br>2. 物理内存已耗光；<br>3. 应用程序的本地内存泄漏(native leak)，例如不断申请本地内存，却不释放。<br>4. 执行jmap-histo:live<pid>命令，强制执行Full GC；如果几次执行后内存明显下降，则基本确认为Direct ByteBuffer问题。|1. 升级地址空间为64bit。<br>2. 使用Arthas检查是否为Inflater/Deflater解压缩问题，如果是则显式调用end方法。<br>3. Direct ByteBuffer问题可以通过启动参数-XX:MaxDirectMemorySize调低阈值。<br>4. 升级服务器配置/隔离部署，避免争用。|
+|Kill process or sacrifice child|有一种内核作业(Kernel Job)名为Out of Memory Killer，它会在可用内存极低的情况下杀死(kill)某些进程。OOM Killer会对所有进程进行打分，然后将评分较低的进程“杀死”，具体的评分规则可以参考Surviving the Linux OOM Killer。不同于其他的OOM错误，Kill processor sacrifice child错误不是由JVM层面触发的，而是由操作系统层面触发的。|默认情况下，Linux内核允许进程申请的内存总量大于系统可用内存，通过这种“错峰复用”的方式可以更有效的利用系统资源。然而这种方式也会无可避免地带来一定的“超卖”风险。例如某些进程持续占用系统内存，然后导致其他进程没有可用内存。此时系统将自动激活OOM Killer，寻找评分低的进程，并将其“杀死”，释放内存资源。|1. 升级服务器配置/隔离部署，避免争用。<br>2. OOM Killer调优。|
+|Requested array size exceeds VM limit|JVM限制了数组的最大长度，该错误表示程序请求创建的数组超过最大长度限制。JVM在为数组分配内存前，会检查要分配的数据结构在系统中是否可寻址，通常为Integer.MAX_VALUE-2。此类问题比较罕见，通常需要检查代码，确认业务是否需要创建如此大的数组，是否可以拆分为多个块，分批执行。|----|----|
+|Direct buffer memory|Java允许应用程序通过Direct ByteBuffer直接访问堆外内存，许多高性能程序通过Direct ByteBuffer结合内存映射文件(MemoryMapped File)实现高速IO。|Direct ByteBuffer的默认大小为64MB，一旦使用超出限制就会抛出Direct buffer memory错误。|1. Java只能通过ByteBuffer.allocateDirect方法使用Direct ByteBuffer，因此可以通过Arthas等在线诊断工具拦截该方法进行排查。<br>2. 检查是否直接或间接使用了NIO，如netty、jetty等。<br>3. 通过启动参数-XX:MaxDirectMemorySize调整Direct ByteBuffer的上限值。<br>4. 检查JVM参数是否有-XX:+DisableExplicitGC选项，如果有就去掉，因为该参数会使System.gc()失效。<br>5. 检查堆外内存使用代码，确认是否存在内存泄漏；或者通过反射调用sun.misc.Cleaner的clean()方法来主动释放被Direct ByteBuffer持有的内存空间。<br>6. 内存容量确实不足，升级配置。|
 
 
 #### 有没有用过分布式锁，怎么实现的，讲讲原理
@@ -532,16 +532,16 @@ Innodb存储引擎的快照读是基于多版本并发控制MVCC和undo log实�
 
 |脑裂问题成因|解释|
 | :----- | :----- |
-|<div style="width: 100px">⽹络问题</div>|集群间的⽹络延迟导致⼀些节点访问不到master，认为master挂掉了从⽽选举出新的master，并对master上的分⽚和副本标红，分配新的主分⽚。|
-|<div style="width: 100px">节点负载</div>|主节点的角色既为master⼜为data，访问量较⼤时可能会导致ES停⽌响应造成⼤⾯积延迟，此时其他节点得不到主节点的响应认为主节点挂掉了，会重新选取主节点。|
-|<div style="width: 100px">内存回收</div>|data节点上的ES进程占⽤的内存较⼤，引发JVM的⼤规模内存回收，造成ES进程失去响应。|
+|<div style="width: 100px">网络问题</div>|集群间的网络延迟导致一些节点访问不到master，认为master挂掉了从而选举出新的master，并对master上的分片和副本标红，分配新的主分片。|
+|<div style="width: 100px">节点负载</div>|主节点的角色既为master又为data，访问量较大时可能会导致ES停止响应造成大面积延迟，此时其他节点得不到主节点的响应认为主节点挂掉了，会重新选取主节点。|
+|<div style="width: 100px">内存回收</div>|data节点上的ES进程占用的内存较大，引发JVM的大规模内存回收，造成ES进程失去响应。|
 
 
 |解决方案|解释|
 | :----- | :----- |
-|<div style="width: 100px">角色分离</div>|即master节点与data节点分离，限制⾓⾊；数据节点时需要承担存储和搜索的工作的，压⼒会很⼤。所以如果该节点同时作为候选主节点和数据节点，那么⼀旦选上它作为主节点了，这时主节点的工作压力将会⾮常⼤，出现脑裂现象的概率就增加了。|
-|<div style="width: 100px">减少误判</div>|配置主节点的响应时间，在默认情况下，主节点3秒没有响应，其他节点就认为主节点宕机了，那我们可以把该时间设置得长⼀点，该配置是discovery.zen.ping_timeout:5。|
-|<div style="width: 100px">选举触发</div>|discovery.zen.minimum_master_nodes:1(默认是1)，该属性定义的是为了形成⼀个集群，有主节点资格并互相连接的节点的最⼩数⽬。⼀个有10节点的集群，且每个节点都有成为主节点的资格，discovery.zen.minimum_master_nodes参数设置为6。正常情况下，10个节点，互相连接，⼤于6，就可以形成⼀个集群。若某个时刻，其中有3个节点断开连接。剩下7个节点，⼤于6，继续运⾏之前的集群。⽽断开的3个节点，⼩于6，不能形成⼀个集群。该参数就是为了防⽌脑裂的产⽣建议设置为(候选主节点数/2)+1。|
+|<div style="width: 100px">角色分离</div>|即master节点与data节点分离，限制角色；数据节点时需要承担存储和搜索的工作的，压力会很大。所以如果该节点同时作为候选主节点和数据节点，那么一旦选上它作为主节点了，这时主节点的工作压力将会非常大，出现脑裂现象的概率就增加了。|
+|<div style="width: 100px">减少误判</div>|配置主节点的响应时间，在默认情况下，主节点3秒没有响应，其他节点就认为主节点宕机了，那我们可以把该时间设置得长一点，该配置是discovery.zen.ping_timeout:5。|
+|<div style="width: 100px">选举触发</div>|discovery.zen.minimum_master_nodes:1(默认是1)，该属性定义的是为了形成一个集群，有主节点资格并互相连接的节点的最小数目。一个有10节点的集群，且每个节点都有成为主节点的资格，discovery.zen.minimum_master_nodes参数设置为6。正常情况下，10个节点，互相连接，大于6，就可以形成一个集群。若某个时刻，其中有3个节点断开连接。剩下7个节点，大于6，继续运行之前的集群。而断开的3个节点，小于6，不能形成一个集群。该参数就是为了防止脑裂的产生，建议设置为(候选主节点数/2)+1。|
 
 
 👉 [ES脑裂问题分析及优化](https://blog.csdn.net/BruceLiu_code/article/details/110467660)
