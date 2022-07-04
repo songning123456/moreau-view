@@ -4,23 +4,23 @@
 ### 阿里巴巴
 
 
-#### 对象如何进行深拷⻉，除了clone？
+#### 对象如何进行深拷贝，除了clone？
 1. 构造函数
 2. Apache Commons Lang序列化
 3. Gson序列化
 
 
 #### happen-before原则？
-|happen-before原则|解释|
+|原则|解释|
 | :----- | :----- |
-|单线程|在同一个线程中，书写在前面的操作happen-before后面的操作。|
-|锁|同一个锁的unlock操作happen-before此锁的lock操作。|
-|volatile|对一个volatile变量的写操作happen-before对此变量的任意操作(当然也包括写操作了)。|
-|传递性|如果A操作happen-before B操作，B操作happen-before C操作，那么A操作happen-before C操作。|
-|线程启动|同一个线程的start方法happen-before此线程的其它方法。|
-|线程中断|对线程interrupt方法的调用happen-before被中断线程的检测到中断发送的代码。|
-|线程终结|线程中的所有操作都happen-before线程的终止检测。|
-|对象创建|一个对象的初始化完成先于他的finalize方法调用。|
+|<div style='width: 80px'>单线程</div>|在同一个线程中，书写在前面的操作happen-before后面的操作。|
+|<div style='width: 80px'>锁</div>|同一个锁的unlock操作happen-before此锁的lock操作。|
+|<div style='width: 80px'>volatile</div>|对一个volatile变量的写操作happen-before对此变量的任意操作(当然也包括写操作了)。|
+|<div style='width: 80px'>传递性</div>|如果A操作happen-before B操作，B操作happen-before C操作，那么A操作happen-before C操作。|
+|<div style='width: 80px'>线程启动</div>|同一个线程的start方法happen-before此线程的其它方法。|
+|<div style='width: 80px'>线程中断</div>|对线程interrupt方法的调用happen-before被中断线程的检测到中断发送的代码。|
+|<div style='width: 80px'>线程终结</div>|线程中的所有操作都happen-before线程的终止检测。|
+|<div style='width: 80px'>对象创建</div>|一个对象的初始化完成先于他的finalize方法调用。|
 
 
 #### JVM调优的实践？
@@ -185,7 +185,7 @@ Netty是一个基于JAVA NIO类库的异步通信框架，它的架构特点是�
 👉 [分布式锁原理及实现](https://blog.csdn.net/A_BlackMoon/article/details/116519674)
 
 
-#### Redis的跳表用在哪，为什么用跳表
+#### Redis的跳表用在哪里，为什么用跳表？
 跳跃表以有序的方式在层次化的链表中保存元素，在大多数情况下，跳跃表的效率可以和平衡树媲美，查找、删除、添加等操作都可以在对数期望时间下完成，并且比起平衡树来说，跳跃表的实现要简单直观得多。所以在Redis中没有使用平衡树，而是使用了跳跃表。
 
 
@@ -217,14 +217,14 @@ Netty是一个基于JAVA NIO类库的异步通信框架，它的架构特点是�
 👉 [MySQL性能调优最佳实践经验](https://tech.it168.com/a2012/0414/1337/000001337422.shtml)
 
 
-#### HashMap的1.8与1.7区别
+#### HashMap的1.8与1.7区别？
 ![](/images/ReviewV/HashMap.png)
 
 
 | 版本号 | 结构 | 
 | :----- | :----- |  
-|1.7|数组+链表|
-|1.8|数组+链表+红黑树(当链表长度>8且数组长度>=64时链表会转成红黑树，当长度<6时红黑树又会转成链表。)|
+|<div style='width: 80px'>1.7</div>|数组+链表|
+|<div style='width: 80px'>1.8</div>|数组+链表+红黑树(当链表长度>8且数组长度>=64时链表会转成红黑树，当长度<6时红黑树又会转成链表。)|
 
 
 #### Netty的原理和使用
@@ -1041,14 +1041,16 @@ jstack -l PID | grep ${16进制NID} -A 100
 ![](/images/ReviewV/JMM8.png)
 
 
-1. lock (锁定): 将主内存变量加锁，表示为线程独占状态，可以被线程进行read。
-2. read(读取): 线程从主内存读取数据。
-3. load(载入): 将上一步线程从主内存中读取的数据，加载到工作内存中。
-4. use(使用): 从工作内存中读取数据来进行我们所需要的逻辑计算。
-5. assign(复制): 将计算后的数据赋值到工作内存中。
-6. store(存储): 将工作内存的数据准备写入主内存。
-7. write(写入): 将store过去的变量正式写入主内存。
-8. unlock(解锁): 将主内存的变量解锁，解锁后其他线程可以锁定该变量。
+| 操作 | 解释 | 
+| :----- | :----- | 
+|<div style='width: 100px'>lock (锁定)</div>|将主内存变量加锁，表示为线程独占状态，可以被线程进行read。|
+|<div style='width: 100px'>read(读取)</div>|线程从主内存读取数据。|
+|<div style='width: 100px'>load(载入)</div>|将上一步线程从主内存中读取的数据，加载到工作内存中。|
+|<div style='width: 100px'>use(使用)</div>|从工作内存中读取数据来进行我们所需要的逻辑计算。|
+|<div style='width: 100px'>assign(复制)</div>|将计算后的数据赋值到工作内存中。|
+|<div style='width: 100px'>store(存储)</div>|将工作内存的数据准备写入主内存。|
+|<div style='width: 100px'>write(写入)</div>|将store过去的变量正式写入主内存。|
+|<div style='width: 100px'>unlock(解锁)</div>|将主内存的变量解锁，解锁后其他线程可以锁定该变量。|
 
 
 #### GC Root有哪些？
@@ -1435,14 +1437,14 @@ cat /proc/sys/net/ipv4/tcp_retries2
 
 | 内存淘汰策略 | 解释 |
 | :----- | :----- | 
-|<div style='width: 100px'>no-eviction</div>|当内存不足以容纳新写入数据时，新写入操作会报错，无法写入新数据，一般不采用。|
-|<div style='width: 100px'>allkeys-lru</div>|当内存不足以容纳新写入数据时，移除最近最少使用的key，这个是最常用的。|
-|<div style='width: 100px'>allkeys-random</div>|当内存不足以容纳新写入的数据时，随机移除key。|
-|<div style='width: 100px'>allkeys-lfu</div>|当内存不足以容纳新写入数据时，移除最不经常(最少)使用的key。|
-|<div style='width: 100px'>volatile-lru</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，移除最近最少使用的key。|
-|<div style='width: 100px'>volatile-random</div>|内存不足以容纳新写入数据时，在设置了过期时间的key中，随机移除某个key 。|
-|<div style='width: 100px'>volatile-lfu</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，移除最不经常(最少)使用的key 。|
-|<div style='width: 100px'>volatile-ttl</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，优先移除过期时间最早(剩余存活时间最短)的key。|
+|<div style='width: 120px'>no-eviction</div>|当内存不足以容纳新写入数据时，新写入操作会报错，无法写入新数据，一般不采用。|
+|<div style='width: 120px'>allkeys-lru</div>|当内存不足以容纳新写入数据时，移除最近最少使用的key，这个是最常用的。|
+|<div style='width: 120px'>allkeys-random</div>|当内存不足以容纳新写入的数据时，随机移除key。|
+|<div style='width: 120px'>allkeys-lfu</div>|当内存不足以容纳新写入数据时，移除最不经常(最少)使用的key。|
+|<div style='width: 120px'>volatile-lru</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，移除最近最少使用的key。|
+|<div style='width: 120px'>volatile-random</div>|内存不足以容纳新写入数据时，在设置了过期时间的key中，随机移除某个key 。|
+|<div style='width: 120px'>volatile-lfu</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，移除最不经常(最少)使用的key 。|
+|<div style='width: 120px'>volatile-ttl</div>|当内存不足以容纳新写入数据时，在设置了过期时间的key中，优先移除过期时间最早(剩余存活时间最短)的key。|
 
 
 #### 线程池参数、使用场景、参数设置分析？
