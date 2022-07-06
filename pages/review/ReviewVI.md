@@ -299,7 +299,169 @@ abstract class Cat {
 ### 容器
 
 
+#### Java容器都有哪些？
+![](/images/ReviewVI/Collection.png)
+
+
+#### Collection和Collections有什么区别？
+| 类 | 解释 |
+| :----- | :----- | 
+|Collection|是一个集合接口，它提供了对集合对象进行基本操作的通用接口方法，所有集合都是它的子类，比如List、Set等。|
+|Collections|是一个包装类，包含了很多静态方法，不能被实例化，就像一个工具类，比如提供的排序方法Collections.sort(list)。|
+
+
+#### List、Set、Map之间的区别是什么？
+![](/images/ReviewVI/listmapset.png)
+
+
+#### HashMap和Hashtable有什么区别？
+// todo
+
+
+#### 如何决定使用HashMap还是TreeMap？
+// todo
+
+
+#### 说一下HashMap的实现原理？
+// todo
+
+
+#### 说一下HashSet的实现原理？
+// todo
+
+
+#### ArrayList和LinkedList的区别是什么？
+// todo
+
+
+#### 如何实现数组和List之间的转换？
+// todo
+
+
+#### ArrayList和Vector的区别是什么？
+// todo
+
+
+#### Array和ArrayList有何区别？
+// todo
+
+
+#### 在Queue中poll()和remove()有什么区别？
+// todo
+
+
+#### 哪些集合类是线程安全的？
+// todo
+
+
+#### 迭代器Iterator是什么？
+// todo
+
+
+#### Iterator怎么使用？有什么特点？
+// todo
+
+
+#### Iterator和ListIterator有什么区别？
+// todo
+
+
+#### 怎么确保一个集合不能被修改？
+// todo
+
+
 ### 多线程
+
+
+#### 并行和并发有什么区别？
+// todo
+
+
+#### 线程和进程的区别？
+// todo
+
+
+#### 守护线程是什么？
+// todo
+
+
+#### 创建线程有哪几种方式？
+// todo
+
+
+#### 说一下runnable和callable有什么区别？
+// todo
+
+
+#### 线程有哪些状态？
+// todo
+
+
+#### sleep()和wait()有什么区别？
+// todo
+
+
+#### notify()和notifyAll()有什么区别？
+// todo
+
+
+#### 线程的run()和start()有什么区别？
+// todo
+
+
+#### 创建线程池有哪几种方式？
+// todo
+
+
+#### 线程池都有哪些状态？
+// todo
+
+
+#### 线程池中submit()和execute()方法有什么区别？
+// todo
+
+
+#### 在Java程序中怎么保证多线程的运行安全？
+// todo
+
+
+#### 多线程中synchronized锁升级的原理是什么？
+在锁对象的对象头里面有一个threadid字段，在第一次访问的时候threadid为空，jvm让其持有偏向锁，并将threadid设置为其线程id，再次进入的时候会先判断threadid是否与其线程id一致，如果一致则可以直接使用此对象；如果不一致，则升级偏向锁为轻量级锁，通过自旋循环一定次数来获取锁，执行一定次数之后，如果还没有正常获取到要使用的对象，此时就会把锁从轻量级升级为重量级锁，此过程就构成了synchronized锁的升级。
+
+
+锁升级是为了减低了锁带来的性能消耗。在Java 6之后优化synchronized的实现方式，使用了偏向锁升级为轻量级锁再升级到重量级锁的方式，从而减低了锁带来的性能消耗。
+
+
+#### 什么是死锁？
+// todo
+
+
+#### 怎么防止死锁？
+// todo
+
+
+#### ThreadLocal是什么？有哪些使用场景？
+// todo
+
+
+#### 说一下synchronized底层实现原理？
+// todo
+
+
+#### synchronized和volatile的区别是什么？
+// todo
+
+
+#### synchronized和Lock有什么区别？
+// todo
+
+
+#### synchronized和ReentrantLock区别是什么？
+// todo
+
+
+#### 说一下atomic的原理？
+通过CAS乐观锁保证原子性，通过自旋保证当次修改的最终修改成功，通过降低锁粒度(多段锁)增加并发性能。
 
 
 ### 反射
