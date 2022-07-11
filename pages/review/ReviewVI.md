@@ -468,11 +468,16 @@ abstract class Cat {
 
 
 #### 什么是反射？
-// todo
+反射是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为Java语言的反射机制。
 
 
 #### 什么是Java序列化？什么情况下需要序列化？
-// todo
+Java序列化是为了保存各种对象在内存中的状态，并且可以把保存的对象状态再读出来。
+
+
+1. 想把的内存中的对象状态保存到一个文件中或者数据库中时候；
+2. 想用套接字在网络上传送对象的时候；
+3. 想通过RMI(远程方法调用)传输对象的时候。
 
 
 #### 动态代理是什么？有哪些应用？
@@ -514,15 +519,20 @@ abstract class Cat {
 
 
 #### session和cookie有什么区别？
-// todo
+|区别|解释|
+| :----- | :----- |
+|存储位置不同|session存储在服务器端；cookie存储在浏览器端。|
+|安全性不同|cookie安全性一般，在浏览器存储，可以被伪造和修改。|
+|容量和个数限制|cookie有容量限制，每个站点下的cookie也有个数限制。|
+|存储的多样性|session可以存储在redis中、数据库中、应用程序中；而cookie只能存储在浏览器中。|
 
 
 #### 说一下session的工作原理？
-// todo
+客户端登录完成之后，服务器会创建对应的session，session创建完之后，会把session的id发送给客户端，客户端再存储到浏览器中。这样客户端每次访问服务器时，都会带着sessionid，服务器拿到sessionid之后，在内存找到与之对应的session这样就可以正常工作了。
 
 
 #### 如果客户端禁止cookie能实现session还能用吗？
-// todo
+可以用，session只是依赖cookie存储sessionid，如果cookie被禁用了，可以使用url中添加sessionid的方式保证session能正常使用。
 
 
 #### springMVC和struts的区别是什么？
@@ -530,15 +540,21 @@ abstract class Cat {
 
 
 #### 如何避免sql注入？
-// todo
+1. 使用预处理PreparedStatement。
+2. 使用正则表达式过滤掉字符中的特殊字符。
 
 
 #### 什么是XSS攻击？如何避免？
-// todo
+跨站脚本攻击，它是web程序中常见的漏洞。原理是攻击者往web页面里插入恶意的脚本代码(css 代码、javascript代码等)，当用户浏览该页面时，嵌入其中的脚本代码会被执行，从而达到恶意攻击用户的目的，如盗取用户cookie、破坏页面结构、重定向到其他网站等。预防XSS的核心是必须对输入的数据做过滤处理。
 
 
 #### 什么是CSRF攻击？如何避免？
-// todo
+Cross-Site Request Forgery(跨站请求伪造)，可以理解为攻击者盗用了你的身份，以你的名义发送恶意请求，比如以你名义发送邮件、发消息、购买商品，虚拟货币转账等。
+
+
+1. 验证请求来源地址；
+2. 关键操作添加验证码；
+3. 在请求地址添加token并验证。
 
 
 ### 异常模块
@@ -607,7 +623,14 @@ abstract class Cat {
 
 
 #### 说一下你熟悉的设计模式？
-// todo
+|设计模式|解释|
+| :----- | :----- |
+|<div style="width: 120px">单例模式</div>|保证被创建一次，节省系统开销。|
+|<div style="width: 120px">工厂模式</div>|解耦代码。|
+|<div style="width: 120px">观察者模式</div>|定义了对象之间的一对多的依赖，这样一来，当一个对象改变时，它的所有的依赖者都会收到通知并自动更新。|
+|<div style="width: 120px">外观模式</div>|提供一个统一的接口，用来访问子系统中的一群接口，外观定义了一个高层的接口，让子系统更容易使用。|
+|<div style="width: 120px">模版方法模式</div>|定义了一个算法的骨架，而将一些步骤延迟到子类中，模版方法使得子类可以在不改变算法结构的情况下，重新定义算法的步骤。|
+|<div style="width: 120px">状态模式</div>|允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。|
 
 
 #### 简单工厂和抽象工厂有什么区别？
@@ -739,7 +762,7 @@ abstract class Cat {
 // todo
 
 
-#### hibernate是如何工作的？
+#### Hibernate是如何工作的？
 // todo
 
 
@@ -759,7 +782,7 @@ abstract class Cat {
 // todo
 
 
-#### hibernate实体类必须要有无参构造函数吗？为什么？
+#### Hibernate实体类必须要有无参构造函数吗？为什么？
 // todo
 
 
@@ -767,27 +790,50 @@ abstract class Cat {
 
 
 #### Mybatis中#{}和${}的区别是什么？
-// todo
+`#{}`是预编译处理，`${}`是字符替换。
+
+
+在使用#{}时，Mybatis会将sql中的#{}替换成“?”，配合PreparedStatement的set方法赋值，这样可以有效的防止sql注入，保证程序的运行安全。
 
 
 #### Mybatis有几种分页方式？
-// todo
+|分页方式|解释|
+| :----- | :----- |
+|<div style="width: 100px">逻辑分页</div>|使用Mybatis自带的RowBounds进行分页，它是一次性查询很多数据，然后在数据中再进行检索。|
+|<div style="width: 100px">物理分页</div>|自己手写sql分页或使用分页插件PageHelper，去数据库查询指定条数的分页数据的形式。|
 
 
 #### RowBounds是一次性查询全部结果吗？为什么？
-// todo
+RowBounds表面是在“所有”数据中检索数据，其实并非是一次性查询出所有数据，因为Mybatis是对jdbc的封装，在jdbc驱动中有一个Fetch Size的配置，它规定了每次最多从数据库查询多少条数据，假如你要查询更多数据，它会在你执行next()的时候，去查询更多的数据。就好比你去自动取款机取10000元，但取款机每次最多能取2500元，所以你要取4次才能把钱取完。只是对于jdbc来说，当你调用next()的时候会自动帮你完成查询工作。这样做的好处可以有效的防止内存溢出。
 
 
 #### Mybatis逻辑分页和物理分页的区别是什么？
-// todo
+|分页|区别|
+| :----- | :----- |
+|<div style="width: 100px">逻辑分页</div>|一次性查询很多数据，然后再在结果中检索分页的数据。这样做弊端是需要消耗大量的内存、有内存溢出的风险、对数据库压力较大。|
+|<div style="width: 100px">物理分页</div>|从数据库查询指定条数的数据，弥补了一次性全部查出的所有数据的种种缺点，比如需要大量的内存，对数据库查询压力较大等问题。|
 
 
 #### Mybatis是否支持延迟加载？延迟加载的原理是什么？
-// todo
+```
+ lazyLoadingEnabled=true
+```
+
+
+延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用a.getB().getName()，这个时候发现a.getB()的值为null，此时会单独触发事先保存好的关联B对象的sql，先查询出来B，然后再调用a.setB(b)，而这时候再调用a.getB().getName()就有值了，这就是延迟加载的基本原理。
 
 
 #### 说一下Mybatis的一级缓存和二级缓存？
-// todo
+|缓存|解释|
+| :----- | :----- |
+|<div style="width: 100px">一级缓存</div>|基于PerpetualCache的HashMap本地缓存，它的声明周期是和sqlSession一致的，有多个sqlSession或者分布式的环境中数据库操作，可能会出现脏数据。当Session flush或close之后，该Session中的所有Cache就将清空，默认一级缓存是开启的。|
+|<div style="width: 100px">二级缓存</div>|也是基于PerpetualCache的HashMap本地缓存，不同在于其存储作用域为Mapper级别的，如果多个sqlSession之间需要共享缓存，则需要使用到二级缓存，并且二级缓存可自定义存储源，如Ehcache。默认不打开二级缓存，要开启二级缓存，使用二级缓存属性类需要实现Serializable序列化接口(可用来保存对象的状态)。|
+
+
+开启二级缓存数据查询流程: 二级缓存 -> 一级缓存 -> 数据库。
+
+
+缓存更新机制: 当某一个作用域(一级缓存Session/二级缓存Mapper)进行了C/U/D操作后，默认该作用域下所有select中的缓存将被clear。
 
 
 #### Mybatis和Hibernate的区别有哪些？
@@ -795,15 +841,75 @@ abstract class Cat {
 
 
 #### Mybatis有哪些执行器(Executor)？
-// todo
+|执行器|解释|
+| :----- | :----- |
+|<div style="width: 120px">SimpleExecutor</div>|每执行一次update或select就开启一个Statement对象，用完立刻关闭Statement对象。|
+|<div style="width: 120px">ReuseExecutor</div>|执行update或select，以sql作为key查找Statement对象，存在就使用，不存在就创建，用完后不关闭Statement对象，而是放置于Map内供下一次使用。简言之，就是重复使用Statement对象。|
+|<div style="width: 120px">BatchExecutor</div>|执行update(没有select，jdbc批处理不支持select)，将所有sql都添加到批处理中(addBatch())，等待统一执行(executeBatch())，它缓存了多个Statement对象，每个Statement对象都是addBatch()完毕后，等待逐一执行executeBatch()批处理，与jdbc批处理相同。|
 
 
 #### Mybatis分页插件的实现原理是什么？
-// todo
+分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的sql，然后重写sql，根据dialect方言，添加对应的物理分页语句和物理分页参数。
 
 
 #### Mybatis如何编写一个自定义插件？
-// todo
+**自定义插件实现原理**
+
+
+Mybatis自定义插件针对Mybatis四大对象(Executor、StatementHandler、ParameterHandler、ResultSetHandler)进行拦截:
+
+
+|Mybatis对象|解释|
+| :----- | :----- |
+|<div style="width: 140px">Executor</div>|拦截内部执行器，它负责调用StatementHandler操作数据库，并把结果集通过ResultSetHandler进行自动映射，另外它还处理了二级缓存的操作。|
+|<div style="width: 140px">StatementHandler</div>|拦截sql语法构建的处理，它是Mybatis直接和数据库执行sql脚本的对象，另外它也实现了Mybatis的一级缓存。|
+|<div style="width: 140px">ParameterHandler</div>|拦截参数的处理。|
+|<div style="width: 140px">ResultSetHandler</div>|拦截结果集的处理。|
+
+
+**自定义插件实现关键**
+
+
+Mybatis插件要实现Interceptor接口，接口包含的方法，如下: 
+
+
+```java
+public interface Interceptor {   
+   Object intercept(Invocation invocation) throws Throwable;       
+   Object plugin(Object target);    
+   void setProperties(Properties properties);
+}
+```
+
+
+|接口方法|解释|
+| :----- | :----- |
+|<div style="width: 120px">setProperties()</div>|在Mybatis进行配置插件的时候可以配置自定义相关属性，即接口实现对象的参数配置。|
+|<div style="width: 120px">plugin()</div>|插件用于封装目标对象的，通过该方法我们可以返回目标对象本身，也可以返回一个它的代理，可以决定是否要进行拦截进而决定要返回一个什么样的目标对象，官方提供了示例`return Plugin.wrap(target, this)`。|
+|<div style="width: 120px">intercept()</div>|要进行拦截的时候要执行的方法。|
+
+
+**自定义插件实现示例**
+
+
+```java
+@Intercepts({@Signature(type = Executor.class, method = "query",
+        args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
+public class TestInterceptor implements Interceptor {
+    public Object intercept(Invocation invocation) throws Throwable {
+        Object target = invocation.getTarget(); //被代理对象
+        Method method = invocation.getMethod(); //代理方法
+        Object[] args = invocation.getArgs(); //方法参数
+        // do something ...... 方法拦截前执行代码块
+        Object result = invocation.proceed();
+        // do something .......方法拦截后执行代码块
+        return result;
+    }
+    public Object plugin(Object target) {
+        return Plugin.wrap(target, this);
+    }
+}
+```
 
 
 ### RabbitMQ
@@ -1271,23 +1377,54 @@ Redis分布式锁不能解决超时的问题，分布式锁有一个超时时间
 
 
 #### 说一下JVM有哪些垃圾回收算法？
-// todo
+|垃圾回收算法|解释|
+| :----- | :----- |
+|<div style='width: 150px'>标记-清除算法</div>|标记无用对象，然后进行清除回收。缺点效率不高，无法清除垃圾碎片。|
+|<div style='width: 150px'>标记-整理算法</div>|标记无用对象，让所有存活的对象都向一端移动，然后直接清除掉端边界以外的内存。|
+|<div style='width: 150px'>复制算法</div>|按照容量划分二个大小相等的内存区域，当一块用完的时候将活着的对象复制到另一块上，然后再把已使用的内存空间一次清理掉。缺点内存使用率不高，只有原来的一半。|
+|<div style='width: 150px'>分代算法</div>|根据对象存活周期的不同将内存划分为几块，一般是新生代和老年代，新生代基本采用复制算法，老年代采用标记整理算法。|
 
 
 #### 说一下JVM有哪些垃圾回收器？
-// todo
+|垃圾回收器|解释|
+| :----- | :----- |
+|Serial|最早的单线程串行垃圾回收器。|
+|Serial Old|Serial垃圾回收器的老年版本，同样也是单线程的，可以作为CMS垃圾回收器的备选预案。|
+|ParNew|是Serial的多线程版本。|
+|Parallel|和ParNew收集器类似是多线程的，但Parallel是吞吐量优先的收集器，可以牺牲等待时间换取系统的吞吐量。|
+|Parallel Old|是Parallel老生代版本，Parallel使用的是复制的内存回收算法，Parallel Old使用的是标记-整理的内存回收算法。|
+|CMS|一种以获得最短停顿时间为目标的收集器，非常适用B/S系统。|
+|G1|一种兼顾吞吐量和停顿时间的GC实现，是JDK 9以后的默认GC选项。|
 
 
 #### 详细介绍一下CMS垃圾回收器？
-// todo
+CMS是英文Concurrent Mark-Sweep的简称，是以牺牲吞吐量为代价来获得最短回收停顿时间的垃圾回收器。对于要求服务器响应速度的应用上，这种垃圾回收器非常适合。在启动JVM的参数加上`-XX:+UseConcMarkSweepGC`来指定使用CMS垃圾回收器。
+
+
+CMS使用的是标记-清除的算法实现的，所以在GC的时候回产生大量的内存碎片，当剩余内存不能满足程序运行要求时，系统将会出现Concurrent Mode Failure，临时CMS会采用Serial Old回收器进行垃圾清除，此时的性能将会被降低。
 
 
 #### 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？
-// todo
+|垃圾回收器|--| 解释| 
+| :----- | :----- | :----- |
+|<div style='width: 150px'>新生代回收器</div>|Serial、ParNew、Parallel Scavenge|新生代垃圾回收器一般采用的是复制算法，复制算法的优点是效率高，缺点是内存利用率低。|
+|<div style='width: 150px'>老年代回收器</div>|Serial Old、Parallel Old、CMS|老年代回收器一般采用的是标记-整理的算法进行垃圾回收。|
+|<div style='width: 150px'>整堆回收器</div>|G1|--|
 
 
 #### 简述分代垃圾回收器是怎么工作的？
-// todo
+分代回收器有两个分区老生代和新生代，新生代默认的空间占比总空间的1/3，老生代的默认占比是2/3。
+
+
+新生代使用的是复制算法，新生代里有3个分区Eden、To Survivor、From Survivor，它们的默认占比是8:1:1，它的执行流程如下:
+
+
+1. 把Eden + From Survivor存活的对象放入To Survivor区。
+2. 清空Eden和From Survivor分区。
+3. From Survivor和To Survivor分区交换，From Survivor变To Survivor，To Survivor变From Survivor。
+
+
+每次在From Survivor到To Survivor移动时都存活的对象，年龄就+1，当年龄到达15(默认配置是15)时，升级为老生代。大对象也会直接进入老生代。老生代当空间占用到达某个值之后就会触发全局垃圾收回，一般使用标记整理的执行算法。以上这些循环往复就构成了整个分代垃圾回收的整体执行流程。
 
 
 #### 说一下JVM调优的工具？

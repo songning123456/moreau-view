@@ -11,6 +11,9 @@
 👉 [Java面试真题解析](https://gitee.com/mydb/interview)
 
 
+👉 [JavaGuide](https://javaguide.cn/)
+
+
 #### PDF资源
 👉 [JAVA核心面试知识整理](http://pdf.sonin.cn)
 

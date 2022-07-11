@@ -122,3 +122,14 @@ JVM的内存其实是有限制的，不可能是无限的，昂贵的资源，2�
 
 #### G1回收器何时回收垃圾？
 👉 [【原创】面试官问我G1回收器怎么知道你是什么时候的垃圾？](https://www.cnblogs.com/thisiswhy/p/12388638.html)
+
+
+#### 为什么线程崩溃崩溃不会导致JVM崩溃？
+1. 发生stackoverflow还有空指针错误，确实都发送了SIGSEGV，只是虚拟机不选择退出，而是自己内部作了额外的处理，其实是恢复了线程的执行，并抛出StackoverflowError和NPE，这就是为什么JVM不会崩溃且我们能捕获这两个错误/异常的原因。
+2. 如果针对SIGSEGV等信号，在以上的函数中JVM没有做额外的处理，那么最终会走到report_and_die这个方法，这个方法主要做的事情是生成hs_err_pid_xxx.log crash文件(记录了一些堆栈信息或错误)，然后退出。
+
+
+虚拟机内部定义了信号处理函数，而在信号处理函数中对这两者做了额外的处理以让JVM不崩溃，另一方面也可以看出如果JVM不对信号做额外的处理，最后会自己退出并产生crash文件hs_err_pid_xxx.log(可以通过-XX:ErrorFile=/var/log/hs_err.log这样的方式指定)，这个文件记录了虚拟机崩溃的重要原因，所以也可以说，虚拟机是否崩溃只要看它是否会产生此崩溃日志文件。
+
+
+![美团一面: 为什么线程崩溃崩溃不会导致JVM崩溃？](https://mp.weixin.qq.com/s/2by1oM9pEAyf07PpmgRLZQ)
