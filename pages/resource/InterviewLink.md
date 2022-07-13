@@ -70,3 +70,18 @@
 
 
 👉 [Socket常用API详解](http://pdf.sonin.cn?file=Socket常用API详解.pdf)
+
+
+👉 [图解HTTP](http://pdf.sonin.cn?file=图解HTTP.pdf)
+
+
+👉 [图解操作系统](http://pdf.sonin.cn?file=图解操作系统.pdf)
+
+
+👉 [图解计算机基础](http://pdf.sonin.cn?file=图解计算机基础.pdf)
+
+
+👉 [图解网络](http://pdf.sonin.cn?file=图解网络.pdf)
+
+
+👉 [图解系统](http://pdf.sonin.cn?file=图解系统.pdf)
