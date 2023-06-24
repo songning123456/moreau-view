@@ -1,5 +1,5 @@
 # 启动
-gitbook serve --port 8040
+gitbook serve --port 80
 
 # 构建_book
 # gitbook build
