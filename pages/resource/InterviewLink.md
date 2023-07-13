@@ -2,6 +2,9 @@
 
 
 #### 网络资源
+👉 [Linux宝典](https://songning123456.github.io/moreau-linux/)
+
+
 👉 [潜林](https://www.cnblogs.com/fyql)
 
 
