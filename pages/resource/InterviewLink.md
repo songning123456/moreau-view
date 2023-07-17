@@ -94,3 +94,6 @@
 
 
 👉 [Mysql面试题](http://pdf.sonin.cn?file=Mysql面试题.pdf)
+
+
+👉 [Cloud安装步骤](http://pdf.sonin.cn?file=Cloud安装步骤.pdf)
