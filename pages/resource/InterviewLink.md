@@ -97,3 +97,6 @@
 
 
 👉 [Cloud安装步骤](http://pdf.sonin.cn?file=Cloud安装步骤.pdf)
+
+
+👉 [Linux运维工程师面试题总结](http://pdf.sonin.cn/?file=Linux运维工程师面试题总结.pdf)
