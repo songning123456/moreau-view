@@ -100,3 +100,6 @@
 
 
 👉 [Linux运维工程师面试题总结](http://pdf.sonin.cn/?file=Linux运维工程师面试题总结.pdf)
+
+
+👉 [Linux运维面试精华题](http://pdf.sonin.cn/?file=Linux运维面试精华题.pdf)
