@@ -117,14 +117,14 @@ TCP是面向连接的传输协议，TCP传输的数据是以流的形式 ，而�
 | API | 解释 |
 | :----- | :----- |
 |socket()|创建socket|
-|bind()|绑定socket到本地地址和端⼝，通常由服务端调⽤|
-|listen()|TCP专⽤，开启监听模式|
-|accept()|TCP专⽤，服务器等待客户端连接，⼀般是阻塞态|
-|connect()|TCP专⽤，客户端主动连接服务器|
-|send()|TCP专⽤，发送数据|
-|recv()|TCP专⽤，接收数据|
-|sendto()|UDP专⽤，发送数据到指定的IP地址和端⼝|
-|recvfrom()|UDP专⽤，接收数据，返回数据远端的IP地址和端⼝|
+|bind()|绑定socket到本地地址和端口，通常由服务端调用|
+|listen()|TCP专用，开启监听模式|
+|accept()|TCP专用，服务器等待客户端连接，⼀般是阻塞态|
+|connect()|TCP专用，客户端主动连接服务器|
+|send()|TCP专用，发送数据|
+|recv()|TCP专用，接收数据|
+|sendto()|UDP专用，发送数据到指定的IP地址和端口|
+|recvfrom()|UDP专用，接收数据，返回数据远端的IP地址和端口|
 |closesocket()|关闭socket|
 
 
@@ -202,7 +202,7 @@ Netty是一个基于JAVA NIO类库的异步通信框架，它的架构特点是�
 |Permgen space|该错误表示永久代(Permanent Generation)已用满，通常是因为加载的class数目太多或体积太大。|永久代存储对象主要包括以下几类: <br>1. 加载/缓存到内存中的Class定义，包括类的名称、字段、方法和字节码；<br>2. 常量池；<br>3. 对象数组/类型数组所关联的class；<br>4. JIT编译器优化后的class信息。<br>PermGen的使用量与加载到内存的Class的数量/大小正相关。|1. 程序启动报错，修改-XX:MaxPermSize启动参数，调大永久代空间。<br>2. 应用重新部署时报错，很可能是没有应用没有重启，导致加载了多份class信息，只需重启JVM即可解决。<br>3. 运行时报错，应用程序可能会动态创建大量class，而这些class的生命周期很短暂，但是JVM默认不会卸载class，可以设置-XX:+CMSClassUnloadingEnabled和-XX:+UseConcMarkSweepGC这两个参数允许JVM卸载class。|
 |Metaspace|JDK1.8使用Metaspace替换了永久代(Permanent Generation)，该错误表示Metaspace已被用满，通常是因为加载的class数目太多或体积太大。|同Permgen space|同Permgen space。注意的是调整Metaspace空间大小的启动参数为-XX:MaxMetaspaceSize。|
 |Unable to create new native thread|每个Java线程都需要占用一定的内存空间，当JVM向底层操作系统请求创建一个新的native线程时，如果没有足够的资源分配就会报此类错误。|JVM向OS请求创建native线程失败，就会抛出Unable to create new native thread，常见的原因包括以下几类:<br>1. 线程数超过操作系统最大线程数ulimit限制；<br>2. 线程数超过kernel.pid_max(只能重启)；<br>3. native内存不足。|1. JVM内部的应用程序请求创建⼀个新的Java线程；<br>2. JVM native方法代理了该次请求，并向操作系统请求创建一个native线程；<br>3. 操作系统尝试创建一个新的native线程，并为其分配内存；<br>4. 如果操作系统的虚拟内存已耗尽或是受到32位进程的地址空间限制，操作系统就会拒绝本次native内存分配；<br>5. JVM将抛出java.lang.OutOfMemoryError: Unable to create new native thread错误。|
-|Out of swap space|该错误表示所有可用的虚拟内存已被耗尽。虚拟内存(Virtual Memory)由物理内存(Physical Memory)和交换空间(Swap Space)两部分组成。当运⾏时程序请求的虚拟内存溢出时就会报Out of swap space错误。|1. 地址空间不⾜；<br>2. 物理内存已耗光；<br>3. 应用程序的本地内存泄漏(native leak)，例如不断申请本地内存，却不释放。<br>4. 执行jmap-histo:live<pid>命令，强制执行Full GC；如果几次执行后内存明显下降，则基本确认为Direct ByteBuffer问题。|1. 升级地址空间为64bit。<br>2. 使用Arthas检查是否为Inflater/Deflater解压缩问题，如果是则显式调用end方法。<br>3. Direct ByteBuffer问题可以通过启动参数-XX:MaxDirectMemorySize调低阈值。<br>4. 升级服务器配置/隔离部署，避免争用。|
+|Out of swap space|该错误表示所有可用的虚拟内存已被耗尽。虚拟内存(Virtual Memory)由物理内存(Physical Memory)和交换空间(Swap Space)两部分组成。当运⾏时程序请求的虚拟内存溢出时就会报Out of swap space错误。|1. 地址空间不足；<br>2. 物理内存已耗光；<br>3. 应用程序的本地内存泄漏(native leak)，例如不断申请本地内存，却不释放。<br>4. 执行jmap-histo:live<pid>命令，强制执行Full GC；如果几次执行后内存明显下降，则基本确认为Direct ByteBuffer问题。|1. 升级地址空间为64bit。<br>2. 使用Arthas检查是否为Inflater/Deflater解压缩问题，如果是则显式调用end方法。<br>3. Direct ByteBuffer问题可以通过启动参数-XX:MaxDirectMemorySize调低阈值。<br>4. 升级服务器配置/隔离部署，避免争用。|
 |Kill process or sacrifice child|有一种内核作业(Kernel Job)名为Out of Memory Killer，它会在可用内存极低的情况下杀死(kill)某些进程。OOM Killer会对所有进程进行打分，然后将评分较低的进程“杀死”，具体的评分规则可以参考Surviving the Linux OOM Killer。不同于其他的OOM错误，Kill processor sacrifice child错误不是由JVM层面触发的，而是由操作系统层面触发的。|默认情况下，Linux内核允许进程申请的内存总量大于系统可用内存，通过这种“错峰复用”的方式可以更有效的利用系统资源。然而这种方式也会无可避免地带来一定的“超卖”风险。例如某些进程持续占用系统内存，然后导致其他进程没有可用内存。此时系统将自动激活OOM Killer，寻找评分低的进程，并将其“杀死”，释放内存资源。|1. 升级服务器配置/隔离部署，避免争用。<br>2. OOM Killer调优。|
 |Requested array size exceeds VM limit|JVM限制了数组的最大长度，该错误表示程序请求创建的数组超过最大长度限制。JVM在为数组分配内存前，会检查要分配的数据结构在系统中是否可寻址，通常为Integer.MAX_VALUE-2。此类问题比较罕见，通常需要检查代码，确认业务是否需要创建如此大的数组，是否可以拆分为多个块，分批执行。|----|----|
 |Direct buffer memory|Java允许应用程序通过Direct ByteBuffer直接访问堆外内存，许多高性能程序通过Direct ByteBuffer结合内存映射文件(MemoryMapped File)实现高速IO。|Direct ByteBuffer的默认大小为64MB，一旦使用超出限制就会抛出Direct buffer memory错误。|1. Java只能通过ByteBuffer.allocateDirect方法使用Direct ByteBuffer，因此可以通过Arthas等在线诊断工具拦截该方法进行排查。<br>2. 检查是否直接或间接使用了NIO，如netty、jetty等。<br>3. 通过启动参数-XX:MaxDirectMemorySize调整Direct ByteBuffer的上限值。<br>4. 检查JVM参数是否有-XX:+DisableExplicitGC选项，如果有就去掉，因为该参数会使System.gc()失效。<br>5. 检查堆外内存使用代码，确认是否存在内存泄漏；或者通过反射调用sun.misc.Cleaner的clean()方法来主动释放被Direct ByteBuffer持有的内存空间。<br>6. 内存容量确实不足，升级配置。|
@@ -221,7 +221,7 @@ Netty是一个基于JAVA NIO类库的异步通信框架，它的架构特点是�
 跳跃表以有序的方式在层次化的链表中保存元素，在大多数情况下，跳跃表的效率可以和平衡树媲美，查找、删除、添加等操作都可以在对数期望时间下完成，并且比起平衡树来说，跳跃表的实现要简单直观得多。所以在Redis中没有使用平衡树，而是使用了跳跃表。
 
 
-跳跃表的结构是多层的，通过从最高维度的表进行检索再逐渐降低维度从而达到对任何元素的检索接近线性时间的目的O(logn)。理想的跳表是每一层是下一层元素的1/2，即每个元素跳过2个元素，这样共有log2N层。但是这样插入删除元素就会很复杂，ex插入一个元素需要更新所有层相关的节点。所以通常的做法：没次向跳表加入一个元素时，用扔硬币的方式决定要不要向上增长一层。
+跳跃表的结构是多层的，通过从最高维度的表进行检索再逐渐降低维度从而达到对任何元素的检索接近线性时间的目的O(logn)。理想的跳表是每一层是下一层元素的1/2，即每个元素跳过2个元素，这样共有log2N层。但是这样插入删除元素就会很复杂，ex插入一个元素需要更新所有层相关的节点。所以通常的做法：每次向跳表加入一个元素时，用扔硬币的方式决定要不要向上增长一层。
 
 
 ![](/images/ReviewIV/skiplist.png)
@@ -1131,7 +1131,7 @@ jstack -l PID | grep ${16进制NID} -A 100
 |<div style='width: 120px'>让大对象进入年老代</div>|我们在大部分情况下都会选择将对象分配在年轻代。但是，对于占用内存较多的大对象而言，它的选择可能就不是这样的。因为大对象出现在年轻代很可能扰乱年轻代GC，并破坏年轻代原有的对象结构。因为尝试在年轻代分配大对象，很可能导致空间不足，为了有足够的空间容纳大对象，JVM不得不将年轻代中的年轻对象挪到年老代。因为大对象占用空间多，所以可能需要移动大量小的年轻对象进入年老代，这对GC相当不利。基于以上原因，可以将大对象直接分配到年老代，保持年轻代对象结构的完整性，这样可以提高GC的效率。如果一个大对象同时又是一个短命的对象，假设这种情况出现很频繁，那对于GC来说会是一场灾难。原本应该用于存放永久对象的年老代，被短命的对象塞满，这也意味着对堆空间进行了洗牌，扰乱了分代内存回收的基本思路。因此，在软件开发过程中，应该尽可能避免使用短命的大对象。可以使用参数-XX:PetenureSizeThreshold设置大对象直接进入年老代的阈值。当对象的大小超过这个值时，将直接在年老代分配。参数-XX:PetenureSizeThreshold只对串行收集器和年轻代并行收集器有效，并行回收收集器不识别这个参数。|
 |<div style='width: 120px'>设置对象进入年老代的年龄</div>|如何设置对象进入年老代的年龄堆中的每一个对象都有自己的年龄。一般情况下，年轻对象存放在年轻代，年老对象存放在年老代。为了做到这点，虚拟机为每个对象都维护一个年龄。如果对象在Eden区，经过一次GC后依然存活，则被移动到Survivor区中，对象年龄+1。以后如果对象每经过一次GC依然存活，则年龄再+1。当对象年龄达到阈值时，就移入年老代，成为老年对象。这个阈值的最大值可以通过参数-XX:MaxTenuringThreshold来设置，默认值是15。虽然-XX:MaxTenuringThreshold的值可能是15或者更大，但这不意味着新对象非要达到这个年龄才能进入年老代。事实上，对象实际进入年老代的年龄是虚拟机在运行时根据内存使用情况动态计算的，这个参数指定的是阈值年龄的最大值。即实际晋升年老代年龄等于动态计算所得的年龄与-XX:MaxTenuringThreshold中较小的那个。|
 |<div style='width: 120px'>稳定的Java堆VS动荡的Java堆</div>|一般来说，稳定的堆大小对垃圾回收是有利的。获得一个稳定的堆大小的方法是使-Xms和-Xmx的大小一致，即最大堆和最小堆 (初始堆)一样。如果这样设置，系统在运行时堆大小理论上是恒定的，稳定的堆空间可以减少GC的次数。因此，很多服务端应用都会将最大堆和最小堆设置为相同的数值。但是，一个不稳定的堆并非毫无用处。稳定的堆大小虽然可以减少GC次数，但同时也增加了每次GC的时间。让堆大小在一个区间中震荡，在系统不需要使用大内存时，压缩堆空间，使GC应对一个较小的堆，可以加快单次GC的速度。基于这样的考虑，JVM还提供了两个参数用于压缩和扩展堆空间。-XX:MinHeapFreeRatio参数用来设置堆空间最小空闲比例，默认值是40。当堆空间的空闲内存小于这个数值时，JVM便会扩展堆空间。-XX:MaxHeapFreeRatio参数用来设置堆空间最大空闲比例，默认值是70。当堆空间的空闲内存大于这个数值时，便会压缩堆空间，得到一个较小的堆。当-Xmx和-Xms相等时，-XX:MinHeapFreeRatio和-XX:MaxHeapFreeRatio两个参数无效。|
-|<div style='width: 120px'>增大吞吐量提升系统性能</div>|吞吐量优先的方案将会尽可能减少系统执行垃圾回收的总时间，故可以考虑关注系统吞吐量的并行回收收集器。在拥有高性能的计算机上，进行吞吐量优先优化。可以使用参数: java –Xmx3800m –Xms3800m –Xmn2G –Xss128k –XX:+UseParallelGC –XX:ParallelGC-Threads=20 –XX:+UseParallelOldGC。|
+|<div style='width: 120px'>增大吞吐量提升系统性能</div>|吞吐量优先的方案将会尽可能减少系统执行垃圾回收的总时间，故可以考虑关注系统吞吐量的并行回收收集器。在拥有高性能的计算机上，进行吞吐量优先优化。可以使用参数: java -Xmx3800m -Xms3800m -Xmn2G -Xss128k -XX:+UseParallelGC –XX:ParallelGC-Threads=20 -XX:+UseParallelOldGC。|
 |<div style='width: 120px'>尝试使用大的内存分页</div>|CPU是通过寻址来访问内存的。32位CPU的寻址宽度是0~0xFFFFFFFF，计算后得到的大小是4G，也就是说可支持的物理内存最大是4G。但在实践过程中碰到了这样的问题，程序需要使用4G内存，而可用物理内存小于4G，导致程序不得不降低内存占用。为了解决此类问题，现代CPU引入了MMU(Memory Management Unit内存管理单元)。MMU的核心思想是利用虚拟地址替代物理地址，即CPU寻址时使用虚址，由MMU负责将虚址映射为物理地址。MMU的引入解决了对物理内存的限制，对程序来说就像自己在使用4G内存一样。内存分页(Paging)是在使用MMU的基础上，提出的一种内存管理机制。它将虚拟地址和物理地址按固定大小(4K)分割成页(page)和页帧(page frame)，并保证页与页帧的大小相同。这种机制从数据结构上保证了访问内存的高效，并使OS能支持非连续性的内存分配。在程序内存不够用时，还可以将不常用的物理内存页转移到其他存储设备上，比如磁盘，这就是大家耳熟能详的虚拟内存。在Solaris系统中，JVM可以支持Large Page Size的使用。使用大的内存分页可以增强CPU的内存寻址能力，从而提升系统的性能。java –Xmx2506m –Xms2506m –Xmn1536m –Xss128k –XX:++UseParallelGC –XX:ParallelGCThreads=20 –XX:+UseParallelOldGC –XX:+LargePageSizeInBytes=256m。过大的内存分页会导致JVM在计算Heap内部分区(perm、new、old)内存占用比例时，会出现超出正常值的划分，最坏情况下某个区会多占用一个页的大小。|
 |<div style='width: 120px'>使用非占有的垃圾回收器</div>|为降低应用软件的垃圾回收时的停顿，首先考虑的是使用关注系统停顿的CMS回收器，其次为了减少Full GC次数，应尽可能将对象预留在年轻代，因为年轻代Minor GC的成本远远小于年老代的Full GC。|
 
